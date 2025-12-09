@@ -32,11 +32,11 @@
         "done": true
     },
     {
-        "text": "Moving items to top/bottom",
-        "done": false
+        "text": "Editing item",
+        "done": true
     },
     {
-        "text": "Editing item",
+        "text": "Moving items to top/bottom",
         "done": false
     },
     {

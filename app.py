@@ -80,6 +80,9 @@ with term.hidden_cursor(), term.cbreak():
             selected_num = 0
             mode = 'edit'
 
+        if key == 'i':
+            mode = 'edit'
+
         if key == 'd':
             # TODO: delete confirmation
             todos = todos[:selected_num] + todos[selected_num+1:]
