@@ -49,6 +49,16 @@ with term.hidden_cursor(), term.cbreak():
                 todos[selected_num], todos[selected_num+1] = todos[selected_num+1], todos[selected_num]
             continue
 
+        if key.is_ctrl('t'):
+            i = selected_num
+            todos = [todos[i]] + todos[:i] + todos[i+1:]
+            selected_num = 0
+
+        if key.is_ctrl('b'):
+            i = selected_num
+            todos = todos[:i] + todos[i+1:] + [todos[i]] 
+            selected_num = len(todos) - 1
+
         if mode == 'edit':
             if key.name == 'KEY_ESCAPE' or key.name == 'KEY_ENTER' or key.is_ctrl('['):
                 mode = 'normal'

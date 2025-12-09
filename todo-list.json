@@ -37,6 +37,14 @@
     },
     {
         "text": "Moving items to top/bottom",
+        "done": true
+    },
+    {
+        "text": "\u0002Add top/bottom cursor movement",
+        "done": false
+    },
+    {
+        "text": "\u0002Encapsulate app to separate class",
         "done": false
     },
     {
