@@ -1,0 +1,18 @@
+[
+    {
+        "text": "Add test TODO items",
+        "done": true
+    },
+    {
+        "text": "Implement focusing items",
+        "done": true
+    },
+    {
+        "text": "Implement saving to/restoring from files",
+        "done": true
+    },
+    {
+        "text": "Implement checking unchecking items",
+        "done": false
+    }
+]
