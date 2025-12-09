@@ -1,53 +1,50 @@
 import json
 from dataclasses import dataclass, asdict
 
-from textual.app import App, ComposeResult
-from textual import events
-from textual.widgets import Checkbox
+import blessed
+
+term = blessed.Terminal()
 
 @dataclass
 class Todo:
     text: str
     done: bool
 
-class MyApp(App):
+
+with term.hidden_cursor(), term.cbreak():
+    selected_num = 0
     filename = 'todo-list.json'
-    selected_index = 0
+    running = True
+    with open(filename, 'r') as f:
+        todos = [Todo(**todo) 
+                 for todo in json.load(f)]
 
-    def compose(self) -> ComposeResult:
-        with open(self.filename, 'r') as f:
-            self.todos = [Todo(**todo) 
-                          for todo in json.load(f)]
+    while running:
+        print(term.home + term.clear)
 
-        for i, todo in enumerate(self.todos):
-            yield Checkbox(todo.text, 
-                           todo.done, 
-                           id=f'todo{i}')
+        for i, todo in enumerate(todos):
+            print(term.move_xy(0, i), end='')
+            if i == selected_num:
+                print(term.on_snow + term.black, end='')
+            print(f'[{"x" if todo.done else " "}] {todo.text}')
+            print(term.normal)
 
-    def on_key(self, event: events.Event) -> None:
-        if event.key == 'space':
-            todo = self.todos[self.selected_index]
-            todo.done = not todo.done
-            checkbox = self.query_one(f'#todo{self.selected_index}') 
-            todo.value = todo.done
-        else:
-            new_selected_index = self.selected_index
-            if event.key == 'j':
-                new_selected_index += 1
-            elif event.key == 'k':
-                new_selected_index -= 1
+        key = term.inkey()
 
+        if key == 'q':
+            break
 
-            if new_selected_index < 0 or new_selected_index >= len(self.todos):
-                return
+        if key == 'j':
+            selected_num = min(selected_num + 1, len(todos) - 1)
 
-            selected = self.query_one(f'#todo{new_selected_index}')
-            self.selected_index = new_selected_index
-            selected.focus()
+        if key == 'k':
+            selected_num = max(selected_num - 1, 0)
 
-        with open(self.filename, 'w') as f:
-            json.dump([asdict(todo) for todo in self.todos], f, indent=4)
+        if key == ' ':
+            todos[selected_num].done = not todos[selected_num].done
 
-if __name__ == '__main__':
-    app = MyApp()
-    app.run()
+print(term.clear, end='')
+
+with open(filename, 'w') as f:
+    json.dump([asdict(todo) for todo in todos], f, indent=4)
+
