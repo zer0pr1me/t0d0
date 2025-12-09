@@ -1,13 +1,5 @@
 [
     {
-        "text": "Moving items upwards/backwards",
-        "done": false
-    },
-    {
-        "text": "Deleting items",
-        "done": true
-    },
-    {
         "text": "Add test TODO items",
         "done": true
     },
@@ -32,7 +24,23 @@
         "done": true
     },
     {
+        "text": "Deleting items",
+        "done": true
+    },
+    {
+        "text": "Moving items upwards/backwards",
+        "done": true
+    },
+    {
+        "text": "Moving items to top/bottom",
+        "done": false
+    },
+    {
         "text": "Editing item",
+        "done": false
+    },
+    {
+        "text": "Add dates for TODO items",
         "done": false
     }
 ]

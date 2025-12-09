@@ -37,6 +37,18 @@ with term.hidden_cursor(), term.cbreak():
 
         key = term.inkey()
 
+        if key.is_ctrl('n'):
+            if selected_num != len(todos) - 1:
+                todos[selected_num], todos[selected_num+1] = todos[selected_num+1], todos[selected_num]
+                selected_num += 1
+            continue
+
+        if key.is_ctrl('p'):
+            if selected_num != 0:
+                selected_num -= 1
+                todos[selected_num], todos[selected_num+1] = todos[selected_num+1], todos[selected_num]
+            continue
+
         if mode == 'edit':
             if key.name == 'KEY_ESCAPE' or key.name == 'KEY_ENTER' or key.is_ctrl('['):
                 mode = 'normal'
@@ -72,6 +84,7 @@ with term.hidden_cursor(), term.cbreak():
             # TODO: delete confirmation
             todos = todos[:selected_num] + todos[selected_num+1:]
             selected_num = min(selected_num, len(todos) - 1)
+
 
 print(term.clear, end='')
 
