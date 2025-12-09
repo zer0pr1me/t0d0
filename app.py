@@ -25,15 +25,23 @@ class MyApp(App):
                            id=f'todo{i}')
 
     def on_key(self, event: events.Event) -> None:
-        new_selected_index = self.selected_index
-        if event.key == 'j':
-            new_selected_index += 1
-        elif event.key == 'k':
-            new_selected_index -= 1
+        if event.key == 'space':
+            todo = self.todos[self.selected_index]
+            todo.done = not todo.done
+            checkbox = self.query_one(f'#todo{self.selected_index}') 
+            todo.value = todo.done
+        else:
+            new_selected_index = self.selected_index
+            if event.key == 'j':
+                new_selected_index += 1
+            elif event.key == 'k':
+                new_selected_index -= 1
 
-        selected = self.query_one(f'#todo{new_selected_index}')
 
-        if selected:
+            if new_selected_index < 0 or new_selected_index >= len(self.todos):
+                return
+
+            selected = self.query_one(f'#todo{new_selected_index}')
             self.selected_index = new_selected_index
             selected.focus()
 

@@ -13,6 +13,14 @@
     },
     {
         "text": "Implement checking unchecking items",
+        "done": true
+    },
+    {
+        "text": "Addition of item",
         "done": false
-    }
+    },
+    {
+        "text": "Editing item",
+        "done": false
+    },
 ]
