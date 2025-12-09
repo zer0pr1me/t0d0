@@ -10,8 +10,8 @@ class Todo:
     text: str
     done: bool
 
-
 with term.hidden_cursor(), term.cbreak():
+    mode = 'normal' # can be also 'edit'
     selected_num = 0
     filename = 'todo-list.json'
     running = True
@@ -25,11 +25,31 @@ with term.hidden_cursor(), term.cbreak():
         for i, todo in enumerate(todos):
             print(term.move_xy(0, i), end='')
             if i == selected_num:
+                if mode == 'edit':
+                    print(f'[{"x" if todo.done else " "}] {todo.text}', end='')
+                    # and cursor
+                    print(term.on_snow + term.black + ' ' + term.normal)
+                    continue
+
                 print(term.on_snow + term.black, end='')
             print(f'[{"x" if todo.done else " "}] {todo.text}')
             print(term.normal)
 
         key = term.inkey()
+
+        if mode == 'edit':
+            if key.name == 'KEY_ESCAPE' or key.name == 'KEY_ENTER' or key.is_ctrl('['):
+                mode = 'normal'
+                continue
+
+            if key.name == 'KEY_BACKSPACE':
+                todos[selected_num].text = todos[selected_num].text[:-1]
+                continue
+            
+            if not key.is_sequence:
+                todos[selected_num].text += key
+            continue
+
 
         if key == 'q':
             break
@@ -42,6 +62,11 @@ with term.hidden_cursor(), term.cbreak():
 
         if key == ' ':
             todos[selected_num].done = not todos[selected_num].done
+
+        if key == 'a':
+            todos = [Todo('', False)] + todos
+            selected_num = 0
+            mode = 'edit'
 
 print(term.clear, end='')
 
