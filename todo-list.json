@@ -1,59 +1,11 @@
 [
     {
+        "text": "Moving items upwards/backwards",
+        "done": false
+    },
+    {
         "text": "Deleting items",
-        "done": false
-    },
-    {
-        "text": "heel",
-        "done": false
-    },
-    {
-        "text": "",
-        "done": false
-    },
-    {
-        "text": "hello there",
-        "done": false
-    },
-    {
-        "text": " fgd",
-        "done": false
-    },
-    {
-        "text": "sdfsdfsasasadas",
-        "done": false
-    },
-    {
-        "text": "sfdsdfsdsffsdf",
-        "done": false
-    },
-    {
-        "text": "hello wolrrrldq",
-        "done": false
-    },
-    {
-        "text": "a",
-        "done": false
-    },
-    {
-        "text": "asd",
-        "done": false
-    },
-    {
-        "text": "asdfdsdf",
-        "done": false
-    },
-    {
-        "text": "adfdsdfsdf",
-        "done": false
-    },
-    {
-        "text": "asfdsf",
-        "done": false
-    },
-    {
-        "text": "as",
-        "done": false
+        "done": true
     },
     {
         "text": "Add test TODO items",
