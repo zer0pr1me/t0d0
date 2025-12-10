@@ -96,7 +96,12 @@ class TodoScreen:
                     self.i = 0
                     self.mode = 'edit'
 
+                if key == 'e':
+                    self.mode = 'edit'
+
                 if key == 'i':
+                    self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
+                    self.i += 1
                     self.mode = 'edit'
 
                 if key == 'd':

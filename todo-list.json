@@ -49,6 +49,10 @@
     },
     {
         "text": "Add sepate key operation to insert TODO items right on spot (after selected TODO)",
+        "done": true
+    },
+    {
+        "text": "Abstract out input handling for each of modes to separate functions",
         "done": false
     },
     {
