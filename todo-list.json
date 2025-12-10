@@ -69,10 +69,22 @@
     },
     {
         "text": "Add menu screen with available todolists",
-        "done": false
+        "done": true
     },
     {
         "text": "Add dates for TODO items",
+        "done": false
+    },
+    {
+        "text": "Add possibility to add multiple hotkeys",
+        "done": false
+    },
+    {
+        "text": "Implement adding another todolists",
+        "done": false
+    },
+    {
+        "text": "Implement recurring tasks",
         "done": false
     },
     {

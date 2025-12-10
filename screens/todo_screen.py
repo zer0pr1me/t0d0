@@ -1,5 +1,4 @@
 from blessed import Terminal
-from blessed.keyboard import Keystroke
 
 from model.todo import Todo
 from model.todoapp import TodoApp

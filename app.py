@@ -1,13 +1,12 @@
 import blessed
 
-from screens.todo_screen import TodoScreen
+from screens.menu_screen import MenuScreen
 from model.todoapp import TodoApp
-
 
 if __name__ == '__main__':
     term = blessed.Terminal()
     todoapp = TodoApp('.')
 
-    todo_screen = TodoScreen(term, todoapp)
-    todo_screen.run()
+    menu_screen = MenuScreen(term)
+    menu_screen.run()
 

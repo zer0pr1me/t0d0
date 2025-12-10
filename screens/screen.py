@@ -44,6 +44,7 @@ class Screen(metaclass=ScreenMeta):
         self.term = term
         self.mode = None
         self._dbg_msg = ""
+        self._transition_to = None
 
     def handle_key(self, name: str, key: str, ctrl: bool) -> bool:
         keymap = self.ctrl_keymap if ctrl else self.keymap
@@ -80,7 +81,7 @@ class Screen(metaclass=ScreenMeta):
             self.on_start()
             self.running = True
 
-            while self.running:
+            while self.running and not self._transition_to:
                 print(self.term.home + self.term.clear)
 
                 if self._dbg_msg != "":
@@ -93,9 +94,19 @@ class Screen(metaclass=ScreenMeta):
                 key = self.term.inkey()
                 self.handle_key(key.name, key.value, key._ctrl)
 
-            print(self.term.clear, end='')
-            self.on_exit()
+            if not self._transition_to:
+                print(self.term.clear, end='')
+                self.on_exit()
 
+        if self._transition_to:
+            self._transition_to.run()
+
+        if self.running:
+            self._transition_to = None
+            self.run()
 
     def exit(self):
         self.running = False
+
+    def to_screen(self, screen: 'Screen'):
+        self._transition_to = screen
