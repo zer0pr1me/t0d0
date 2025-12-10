@@ -41,10 +41,14 @@
     },
     {
         "text": "\u0002Add top/bottom cursor movement",
-        "done": false
+        "done": true
     },
     {
         "text": "\u0002Encapsulate app to separate class",
+        "done": true
+    },
+    {
+        "text": "Add sepate key operation to insert TODO items right on spot (after selected TODO)",
         "done": false
     },
     {
