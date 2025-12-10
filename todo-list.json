@@ -53,6 +53,10 @@
     },
     {
         "text": "Abstract out input handling for each of modes to separate functions",
+        "done": true
+    },
+    {
+        "text": "Write screen abstraction and decorator for handle keys",
         "done": false
     },
     {
