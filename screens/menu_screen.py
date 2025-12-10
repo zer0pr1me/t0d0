@@ -48,6 +48,7 @@ class MenuScreen(Screen):
     def quit(self):
         self.exit()
 
+    @hotkey(name='KEY_ENTER')
     @hotkey(key='o')
     def open_todolist(self):
         self.to_screen(TodoScreen(self.term, TodoApp(self.config.todolists[self.i].dir)))

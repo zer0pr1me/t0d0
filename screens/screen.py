@@ -7,11 +7,14 @@ def hotkey(name: str = '', key: str = '', mode: Optional[str] = None, ctrl: bool
     def decorator(func):
         if key and name or (not key and not name):
             raise Error('either key or name should be specified')
-        func.__hotkey__ = {
+        hotkeys = getattr(func, '__hotkeys__', None)
+        if not hotkeys:
+            func.__hotkeys__ = []
+        func.__hotkeys__.append({
             'key': key if key else name,
             'mode': mode,
             'ctrl': ctrl
-        }
+        })
 
         return func
 
@@ -27,8 +30,10 @@ class ScreenMeta(type):
             keymap.update(base.keymap)
 
         for attr_name, value in attrs.items():
-            hotkey = getattr(value, "__hotkey__", None)
-            if hotkey is not None:
+            hotkeys = getattr(value, "__hotkeys__", None)
+            if hotkeys is None:
+                continue
+            for hotkey in hotkeys:
                 if hotkey['ctrl']:
                     ctrl_keymap[hotkey['mode']][hotkey['key']] = value
                 else:
@@ -52,13 +57,13 @@ class Screen(metaclass=ScreenMeta):
         if handler:
             handler(self)
             return True
-        elif handler := keymap[self.mode].get(name):
+        elif handler := self.keymap[self.mode].get(name):
             handler(self)
             return True
         elif handler := keymap[None].get(key):
             handler(self)
             return True
-        elif handler := keymap[None].get(name):
+        elif handler := self.keymap[None].get(name):
             handler(self)
             return True
 
