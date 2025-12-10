@@ -5,15 +5,23 @@ from blessed import Terminal
 from blessed.keyboard import Keystroke
 
 from model.todo import Todo
+from model.todoapp import TodoApp
 from screens.screen import Screen, hotkey
 
 class TodoScreen(Screen):
-    def __init__(self, term: Terminal):
+    def __init__(self, term: Terminal, todoapp: TodoApp):
         super().__init__(term)
         self.mode = 'normal'
         self.i = 0
-        self.filename = 'todo-list.json'
+        self.todoapp = todoapp
 
+    @property
+    def todos(self):
+        return self.todoapp.todos
+
+    @todos.setter
+    def todos(self, value):
+        self.todoapp.todos = value
 
     @hotkey('n', ctrl = True)
     def swap_with_next(self):
@@ -112,12 +120,9 @@ class TodoScreen(Screen):
 
 
     def on_start(self):
-        with open(self.filename, 'r') as f:
-            self.todos = [Todo(**todo) 
-                            for todo in json.load(f)]
+        self.todoapp.load()
 
 
     def on_exit(self):
-        with open(self.filename, 'w') as f:
-            json.dump([asdict(todo) for todo in self.todos], f, indent=4)
+        self.todoapp.save()
 
