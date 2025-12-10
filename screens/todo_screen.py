@@ -5,16 +5,98 @@ from blessed import Terminal
 from blessed.keyboard import Keystroke
 
 from model.todo import Todo
+from screens.screen import Screen, hotkey
 
-class TodoScreen:
+class TodoScreen(Screen):
     def __init__(self, term: Terminal):
+        super().__init__(term)
         self.mode = 'normal'
         self.i = 0
         self.filename = 'todo-list.json'
-        self.term = term
 
 
-    def _render_todolist(self):
+    @hotkey('n', ctrl = True)
+    def swap_with_next(self):
+        if self.i != len(self.todos) - 1:
+            self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
+            self.i += 1
+
+    @hotkey('p', ctrl = True)
+    def swap_with_prev(self):
+        if self.i != 0:
+            self.i -= 1
+            self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
+
+    @hotkey('t', ctrl = True)
+    def move_to_top(self):
+        i = self.i
+        self.todos = [self.todos[i]] + self.todos[:i] + self.todos[i+1:]
+        self.i = 0
+
+    @hotkey('b', ctrl = True)
+    def move_to_bottom(self):
+        i = self.i
+        self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
+        self.i = len(self.todos) - 1
+
+    @hotkey('q', mode='normal')
+    def quit(self):
+        self.exit()
+
+    @hotkey('j', mode='normal')
+    def move_down(self):
+        self.i = min(self.i + 1, len(self.todos) - 1)
+
+    @hotkey('k', mode='normal')
+    def move_up(self):
+        self.i = max(self.i - 1, 0)
+
+    @hotkey('t', mode='normal')
+    def move_to_top(self):
+        self.i = 0
+
+    @hotkey('b', mode='normal')
+    def move_to_bottom(self):
+        self.i = len(self.todos) - 1
+
+    @hotkey(' ', mode='normal')
+    def toggle_todo(self):
+        self.todos[self.i].done = not self.todos[self.i].done
+
+    @hotkey('a', mode='normal')
+    def add_todo_to_top(self):
+        self.todos = [Todo('', False)] + self.todos
+        self.i = 0
+        self.mode = 'edit'
+
+    @hotkey('e', mode='normal')
+    def edit_todo(self):
+        self.mode = 'edit'
+
+    @hotkey('i', mode='normal')
+    def insert_todo(self):
+        self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
+        self.i += 1
+        self.mode = 'edit'
+
+    @hotkey('d', mode='normal')
+    def delete_todo(self):
+        # TODO: delete confirmation
+        self.todos = self.todos[:self.i] + self.todos[self.i+1:]
+        self.i = min(self.i, len(self.todos) - 1)
+
+    def handle_key(self, key: str, ctrl: bool) -> bool:
+        # TODO: find better way
+        if not super().handle_key(key, ctrl) and self.mode == 'edit':
+            if key == 'KEY_ENTER' or key == 'KEY_ESCAPE' or (key == '[' and ctrl):
+                self.mode = 'normal' 
+            elif key == 'KEY_BACKSPACE':
+                self.todos[self.i].text = self.todos[self.i].text[:-1]
+            else: 
+                self.todos[self.i].text += key
+
+
+    def render(self):
         for i, todo in enumerate(self.todos):
             print(self.term.move_xy(0, i), end='')
             if i == self.i:
@@ -29,111 +111,13 @@ class TodoScreen:
             print(self.term.normal)
 
 
-    def _handle_common_keys(self, key: Keystroke) -> bool:
-        if key.is_ctrl('n'):
-            if self.i != len(self.todos) - 1:
-                self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
-                self.i += 1
-            return True
-
-        elif key.is_ctrl('p'):
-            if self.i != 0:
-                self.i -= 1
-                self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
-            return True
-
-        elif key.is_ctrl('t'):
-            i = self.i
-            self.todos = [self.todos[i]] + self.todos[:i] + self.todos[i+1:]
-            self.i = 0
-            return True
-
-        elif key.is_ctrl('b'):
-            i = self.i
-            self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
-            self.i = len(self.todos) - 1
-            return True
-        
-        return False
+    def on_start(self):
+        with open(self.filename, 'r') as f:
+            self.todos = [Todo(**todo) 
+                            for todo in json.load(f)]
 
 
-    def _handle_edit_mode(self, key: Keystroke):
-        if key.name == 'KEY_ESCAPE' or key.name == 'KEY_ENTER' or key.is_ctrl('['):
-            self.mode = 'normal'
-
-        elif key.name == 'KEY_BACKSPACE':
-            self.todos[self.i].text = self.todos[self.i].text[:-1]
-
-        elif not key.is_sequence:
-            self.todos[self.i].text += key
-
-    
-    def _handle_normal_mode(self, key: Keystroke):
-        if key == 'q':
-            self.running = False
-
-        if key == 'j':
-            self.i = min(self.i + 1, len(self.todos) - 1)
-
-        if key == 'k':
-            self.i = max(self.i - 1, 0)
-
-        if key == 't':
-            self.i = 0
-
-        if key == 'b':
-            self.i = len(self.todos) - 1
-
-        if key == ' ':
-            self.todos[self.i].done = not self.todos[self.i].done
-
-        if key == 'a':
-            self.todos = [Todo('', False)] + self.todos
-            self.i = 0
-            self.mode = 'edit'
-
-        if key == 'e':
-            self.mode = 'edit'
-
-        if key == 'i':
-            self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
-            self.i += 1
-            self.mode = 'edit'
-
-        if key == 'd':
-            # TODO: delete confirmation
-            self.todos = self.todos[:self.i] + self.todos[self.i+1:]
-            self.i = min(self.i, len(self.todos) - 1)
-
-
-
-    def run(self):
-        with self.term.hidden_cursor(), self.term.cbreak():
-            self.running = True
-            with open(self.filename, 'r') as f:
-                self.todos = [Todo(**todo) 
-                              for todo in json.load(f)]
-
-            while self.running:
-                print(self.term.home + self.term.clear)
-
-                self._render_todolist()
-
-                key = self.term.inkey()
-                if self._handle_common_keys(key):
-                    continue
-
-
-                if self.mode == 'edit':
-                    self._handle_edit_mode(key)
-                elif self.mode == 'normal':
-                    self._handle_normal_mode(key)
-
-        print(self.term.clear, end='')
-
+    def on_exit(self):
         with open(self.filename, 'w') as f:
             json.dump([asdict(todo) for todo in self.todos], f, indent=4)
-
-
-
 

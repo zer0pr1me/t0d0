@@ -57,6 +57,10 @@
     },
     {
         "text": "Write screen abstraction and decorator for handle keys",
+        "done": true
+    },
+    {
+        "text": "Add menu screen with available todolists",
         "done": false
     },
     {
