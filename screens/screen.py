@@ -3,10 +3,12 @@ from blessed import Terminal
 from collections import defaultdict
 from typing import Optional 
 
-def hotkey(key: str, mode: Optional[str] = None, ctrl: bool = False):
+def hotkey(name: str = '', key: str = '', mode: Optional[str] = None, ctrl: bool = False):
     def decorator(func):
+        if key and name or (not key and not name):
+            raise Error('either key or name should be specified')
         func.__hotkey__ = {
-            'key': key,
+            'key': key if key else name,
             'mode': mode,
             'ctrl': ctrl
         }
@@ -43,15 +45,22 @@ class Screen(metaclass=ScreenMeta):
         self.mode = None
         self._dbg_msg = ""
 
-    def handle_key(self, key: str, ctrl: bool) -> bool:
+    def handle_key(self, name: str, key: str, ctrl: bool) -> bool:
         keymap = self.ctrl_keymap if ctrl else self.keymap
         handler = keymap[self.mode].get(key)
         if handler:
             handler(self)
             return True
+        elif handler := keymap[self.mode].get(name):
+            handler(self)
+            return True
         elif handler := keymap[None].get(key):
             handler(self)
             return True
+        elif handler := keymap[None].get(name):
+            handler(self)
+            return True
+
         return False
 
     def on_start(self):
@@ -77,12 +86,12 @@ class Screen(metaclass=ScreenMeta):
                 if self._dbg_msg != "":
                     print(self._dbg_msg)
                     self.term.inkey()
-                    self.dbg_msg = ""
+                    self._dbg_msg = ""
                     continue
 
                 self.render()
                 key = self.term.inkey()
-                self.handle_key(key.name if key.name else key, key._ctrl)
+                self.handle_key(key.name, key.value, key._ctrl)
 
             print(self.term.clear, end='')
             self.on_exit()

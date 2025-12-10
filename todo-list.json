@@ -65,7 +65,7 @@
     },
     {
         "text": "Fix common hotkeys",
-        "done": false
+        "done": true
     },
     {
         "text": "Add menu screen with available todolists",
