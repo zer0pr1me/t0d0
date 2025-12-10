@@ -49,6 +49,9 @@ class Screen(metaclass=ScreenMeta):
         if handler:
             handler(self)
             return True
+        elif handler := keymap[None].get(key):
+            handler(self)
+            return True
         return False
 
     def on_start(self):

@@ -1,6 +1,3 @@
-import json
-from dataclasses import asdict
-
 from blessed import Terminal
 from blessed.keyboard import Keystroke
 
