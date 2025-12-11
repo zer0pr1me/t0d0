@@ -2,7 +2,9 @@ from blessed import Terminal
 
 from model.todo import Todo
 from model.todoapp import TodoApp
-from screens.screen import Screen, hotkey
+from screens.screen import Screen
+from screens.hotkeys import hotkey, unhandled_key_handler
+from screens.dialogs.dialog import Dialog
 
 class TodoScreen(Screen):
     def __init__(self, term: Terminal, todoapp: TodoApp):
@@ -85,13 +87,15 @@ class TodoScreen(Screen):
 
     @hotkey(key='d', mode='normal')
     def delete_todo(self):
+        self.show_dialog(Dialog(self.term))
+        return
         # TODO: delete confirmation
         self.todos = self.todos[:self.i] + self.todos[self.i+1:]
         self.i = min(self.i, len(self.todos) - 1)
 
-    def handle_key(self, name: str, key: str, ctrl: bool) -> bool:
-        # TODO: find better way
-        if not super().handle_key(name, key, ctrl) and self.mode == 'edit':
+    @unhandled_key_handler()
+    def handle_editing(self, name: str, key: str, ctrl: bool):
+        if self.mode == 'edit':
             if name == 'KEY_ENTER' or name == 'KEY_ESCAPE' or (key == '[' and ctrl):
                 self.mode = 'normal' 
             elif name == 'KEY_BACKSPACE':

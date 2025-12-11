@@ -76,6 +76,14 @@
         "done": true
     },
     {
+        "text": "Add possibility to create modal dialogs",
+        "done": true
+    },
+    {
+        "text": "Add confirmation dialog for deletion",
+        "done": false
+    },
+    {
         "text": "Add dates for TODO items",
         "done": false
     },

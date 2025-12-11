@@ -3,7 +3,8 @@ from pathlib import Path
 import json
 
 from platformdirs import user_config_dir
-from screens.screen import Screen, hotkey
+from screens.screen import Screen
+from screens.hotkeys import hotkey
 from screens.todo_screen import TodoScreen
 from model.config import Config, TodolistConfig
 from model.todoapp import TodoApp

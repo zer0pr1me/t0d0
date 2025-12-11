@@ -1,71 +1,16 @@
 from blessed import Terminal
 
-from collections import defaultdict
-from typing import Optional 
+from screens.dialogs.dialog import Dialog
+from screens.hotkeys import HotkeysMeta
 
-def hotkey(name: str = '', key: str = '', mode: Optional[str] = None, ctrl: bool = False):
-    def decorator(func):
-        if key and name or (not key and not name):
-            raise Error('either key or name should be specified')
-        hotkeys = getattr(func, '__hotkeys__', None)
-        if not hotkeys:
-            func.__hotkeys__ = []
-        func.__hotkeys__.append({
-            'key': key if key else name,
-            'mode': mode,
-            'ctrl': ctrl
-        })
-
-        return func
-
-    return decorator
-
-
-class ScreenMeta(type):
-    def __new__(cls, name, bases, attrs):
-        keymap = defaultdict(dict)
-        ctrl_keymap = defaultdict(dict)
-
-        for base in bases:
-            keymap.update(base.keymap)
-
-        for attr_name, value in attrs.items():
-            hotkeys = getattr(value, "__hotkeys__", None)
-            if hotkeys is None:
-                continue
-            for hotkey in hotkeys:
-                if hotkey['ctrl']:
-                    ctrl_keymap[hotkey['mode']][hotkey['key']] = value
-                else:
-                    keymap[hotkey['mode']][hotkey['key']] = value
-
-        attrs['keymap'] = keymap
-        attrs['ctrl_keymap'] = ctrl_keymap
-        return super().__new__(cls, name, bases, attrs)
-
-
-class Screen(metaclass=ScreenMeta):
+class Screen(metaclass=HotkeysMeta):
     def __init__(self, term: Terminal):
         self.term = term
         self.mode = None
+        self.dialog = None
         self._dbg_msg = ""
         self._transition_to = None
 
-    def handle_key(self, name: str, key: str, ctrl: bool) -> bool:
-        keymap = self.ctrl_keymap if ctrl else self.keymap
-        handler = keymap[self.mode].get(key)
-        if handler:
-            handler(self)
-            return True
-        elif handler := self.keymap[self.mode].get(name):
-            handler(self)
-            return True
-        elif handler := keymap[None].get(key):
-            handler(self)
-            return True
-        elif handler := self.keymap[None].get(name):
-            handler(self)
-            return True
 
         return False
 
@@ -88,6 +33,15 @@ class Screen(metaclass=ScreenMeta):
 
             while self.running and not self._transition_to:
                 print(self.term.home + self.term.clear)
+
+                if self.dialog:
+                    if self.dialog.closed:
+                        self.dialog = None
+                        continue
+                    self.dialog.render()
+                    key = self.term.inkey()
+                    self.dialog.handle_key(key.name, key.value, key._ctrl)
+                    continue
 
                 if self._dbg_msg != "":
                     print(self._dbg_msg)
@@ -115,3 +69,6 @@ class Screen(metaclass=ScreenMeta):
 
     def to_screen(self, screen: 'Screen'):
         self._transition_to = screen
+
+    def show_dialog(self, dialog: Dialog):
+        self.dialog = dialog
