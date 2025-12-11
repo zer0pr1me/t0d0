@@ -4,7 +4,7 @@ from model.todo import Todo
 from model.todoapp import TodoApp
 from screens.screen import Screen
 from screens.hotkeys import hotkey, unhandled_key_handler
-from screens.dialogs.dialog import Dialog
+from screens.dialogs.confirmation_dialog import ConfirmationDialog
 
 class TodoScreen(Screen):
     def __init__(self, term: Terminal, todoapp: TodoApp):
@@ -87,11 +87,13 @@ class TodoScreen(Screen):
 
     @hotkey(key='d', mode='normal')
     def delete_todo(self):
-        self.show_dialog(Dialog(self.term))
-        return
-        # TODO: delete confirmation
-        self.todos = self.todos[:self.i] + self.todos[self.i+1:]
-        self.i = min(self.i, len(self.todos) - 1)
+        def _delete():
+            self.todos = self.todos[:self.i] + self.todos[self.i+1:]
+            self.i = min(self.i, len(self.todos) - 1)
+        dialog = ConfirmationDialog(term=self.term,
+                                    msg='Do you want to delete this TODO entry?',
+                                    on_confirm=_delete)
+        self.show_dialog(dialog)
 
     @unhandled_key_handler()
     def handle_editing(self, name: str, key: str, ctrl: bool):

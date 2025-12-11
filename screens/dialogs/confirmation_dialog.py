@@ -1,32 +1,61 @@
+from typing import Callable
+
 from blessed import Terminal
 
-class ConfirmationDialog:
-    def __init__(self, term: Terminal, msg: str, width: int = 60, height: int = 20):
-        self.term = term
-        self.width = width
-        self.height = height
+from screens.dialogs.dialog import Dialog
+from screens.hotkeys import hotkey
+
+class ConfirmationDialog(Dialog):
+    def __init__(self, term: Terminal, msg: str, width: int = 60, height: int = 20,
+                 on_confirm: Callable[[], None] = lambda: None,
+                 on_decline: Callable[[], None] = lambda: None):
+        super().__init__(term, width, height)
+        self.msg = msg
+        self.yes_selected = False
+        self.on_confirm = on_confirm
+        self.on_decline = on_decline
+
+    def _render_message(self):
+        y = self.term.height // 2
+        # TODO: word wrap
+        x = self.term.width // 2 - len(self.msg) // 2
+
+        print(self.term.move_xy(x, y), end='')
+        print(self.msg)
 
 
+    def _render_buttons(self):
+        y = self.term.height // 2 + self.height // 2 - 5
 
-    def _render_borders(self):
-        start_x = term.width // 2 - self.width // 2
-        end_x = term.width // 2 + self.width // 2
-        start_y = term.height // 2 - self.height // 2
-        end_y = term.height // 2 + self.height // 2
-        print(term.move_xy(start_x, start_y))
-        print('+', end='')
-        for x in range(start_x+1, end_x):
-            print('-', end='')
-        print('+')
-        
-        for y in range(start_y+1, end_y):
-            print('|' + ' ' * (height - 2) + '|')
+        yes_x = self.term.width // 2 - self.width // 2 + 10 
+        no_x = self.term.width // 2 + self.width // 2 - (10 + len("[ No ]"))
 
-        print('+', end='')
-        for x in range(start_x+1, end_x):
-            print('-', end='')
-        print('+', end='')
+        if self.yes_selected:
+            print(self.term.on_snow + self.term.black, end='')
+        print(self.term.move_xy(yes_x, y) + '[ Yes ]')
+
+        print(self.term.normal)
+        if not self.yes_selected:
+            print(self.term.on_snow + self.term.black, end='')
+        print(self.term.move_xy(no_x, y) + '[ No ]')
+        print(self.term.normal)
 
     def render(self):
-        self._render_borders()
-            
+        super().render()
+        self._render_buttons()
+        self._render_message()
+
+    @hotkey(name='KEY_TAB')
+    def toggle_choice(self):
+        self.yes_selected = not self.yes_selected
+
+
+    @hotkey(name='KEY_ENTER')
+    def enter(self):
+        if self.yes_selected:
+            self.on_confirm()
+        else:
+            self.on_decline()
+
+        self.closed = True
+

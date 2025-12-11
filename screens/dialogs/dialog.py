@@ -4,6 +4,7 @@ from screens.hotkeys import HotkeysMeta, hotkey
 
 class Dialog(metaclass=HotkeysMeta):
     def __init__(self, term: Terminal, width: int = 60, height: int = 20):
+        self.mode = 'dialog'
         self.term = term
         self.width = width
         self.height = height

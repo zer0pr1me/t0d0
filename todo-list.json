@@ -81,14 +81,14 @@
     },
     {
         "text": "Add confirmation dialog for deletion",
+        "done": true
+    },
+    {
+        "text": "Implement adding another todolists",
         "done": false
     },
     {
         "text": "Add dates for TODO items",
-        "done": false
-    },
-    {
-        "text": "Implement adding another todolists",
         "done": false
     },
     {
