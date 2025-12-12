@@ -1,13 +1,15 @@
 from dataclasses import asdict
 import json
 
-from screens.screen import Screen
-from screens.hotkeys import hotkey
-from screens.todo_screen import TodoScreen
 from model.config import Config, TodolistConfig
-from todolist.todolist import TodoList
-from todolist.json_todolist import JsonTodoList
+from screens.dialogs.create_todo_list_dialog import CreateTodoListDialog
+from screens.hotkeys import hotkey
+from screens.screen import Screen
+from screens.todo_screen import TodoScreen
 from todolist.config_todolist import ConfigTodoList
+from todolist.json_todolist import JsonTodoList
+from todolist.todolist import TodoList
+
 from globals import CONFIG_FILE
 
 from blessed import Terminal
@@ -18,6 +20,11 @@ class MenuScreen(Screen):
     def __init__(self, term: Terminal):
         super().__init__(term)
         self.i = 0
+
+    def save(self):
+        CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(CONFIG_FILE, 'w') as f:
+            json.dump(asdict(self.config), f, indent=4)
 
     def render(self):
         print("TODOLISTS")
@@ -50,9 +57,15 @@ class MenuScreen(Screen):
 
 
     def on_exit(self):
-        CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
-        with open(CONFIG_FILE, 'w') as f:
-            json.dump(asdict(self.config), f, indent=4)
+        self.save()
+
+    @hotkey(key='j')
+    def move_down(self):
+        self.i = min(self.i + 1, len(self.config.todolists))
+
+    @hotkey(key='k')
+    def move_up(self):
+        self.i = max(self.i - 1, 0)
 
     @hotkey(key='q')
     def quit(self):
@@ -70,3 +83,15 @@ class MenuScreen(Screen):
             raise Exception(f'Unknown todo list storage type: {tl_data.storage_type}')
         self.to_screen(TodoScreen(self.term, todolist))
 
+    
+    @hotkey(key='c')
+    def create_todolist(self):
+        def _create(name: str):
+            # TODO: other types of storage
+            self.config.todolists.append(TodolistConfig(storage_type='config',
+                                                        name=name,
+                                                        args={}))
+            self.save()
+        dialog = CreateTodoListDialog(term=self.term, on_create=_create)
+
+        self.show_dialog(dialog)

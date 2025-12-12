@@ -34,7 +34,10 @@ class HotkeysMeta(type):
         handle_unhandled = None
 
         for base in bases:
-            keymap.update(base.keymap)
+            base_keymap = getattr(base, 'keymap', None)
+            if base_keymap:
+                for mode, mapping in base_keymap.items():
+                    keymap[mode] = mapping.copy()
 
         for attr_name, value in attrs.items():
             unhandled_key_handler = getattr(value, "__unhandled_key_handler__", None)
