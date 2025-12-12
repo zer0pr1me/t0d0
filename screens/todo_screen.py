@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from blessed import Terminal
 
 from model.todo import Todo
@@ -23,9 +23,6 @@ class TodoScreen(Screen):
         self.todoapp.todos = value
 
 
-    @hotkey(key='w')
-    def schedule_to_today(self):
-        self.todos[self.i].scheduled_at = date.today()
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
@@ -50,6 +47,23 @@ class TodoScreen(Screen):
         i = self.i
         self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
         self.i = len(self.todos) - 1
+
+    @hotkey(key='w', mode='normal')
+    def schedule_to_today(self):
+        self.todos[self.i].scheduled_at = date.today()
+
+    @hotkey(key='h', mode='normal')
+    def move_schedule_prev(self):
+        if self.todos[self.i].scheduled_at is None:
+            self.schedule_to_today()
+        self.todos[self.i].scheduled_at -= timedelta(days=1)
+
+    @hotkey(key='l', mode='normal')
+    def move_schedule_next(self):
+        if self.todos[self.i].scheduled_at is None:
+            self.schedule_to_today()
+        self.todos[self.i].scheduled_at += timedelta(days=1)
+
 
     @hotkey(key='q', mode='normal')
     def quit(self):
