@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import date, timedelta
 from blessed import Terminal
 
@@ -63,6 +64,16 @@ class TodoScreen(Screen):
         if self.todos[self.i].scheduled_at is None:
             self.schedule_to_today()
         self.todos[self.i].scheduled_at += timedelta(days=1)
+
+    @hotkey(key='c', mode='normal')
+    def copy_todo(self):
+        copy = replace(self.todos[self.i], 
+                       done=False, 
+                       created_at=date.today(), 
+                       scheduled_at=None)
+
+        self.todos = self.todos[:self.i+1] + [copy] + self.todos[self.i+1:]
+        self.i += 1
 
 
     @hotkey(key='q', mode='normal')
