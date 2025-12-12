@@ -3,10 +3,11 @@ import json
 from pathlib import Path
 
 from model.todo import Todo
+from todolist.todolist import TodoList
 
-class TodoApp:
-    def __init__(self, dirname: str):
-        self.todos = []
+class JsonTodoList(TodoList):
+    def __init__(self, name: str, dirname: str):
+        super().__init__(name)
         self.dir = Path(dirname)
 
     def save(self):

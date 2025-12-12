@@ -1,13 +1,13 @@
 from blessed import Terminal
 
 from model.todo import Todo
-from model.todoapp import TodoApp
+from todolist.todolist import TodoList
 from screens.screen import Screen
 from screens.hotkeys import hotkey, unhandled_key_handler
 from screens.dialogs.confirmation_dialog import ConfirmationDialog
 
 class TodoScreen(Screen):
-    def __init__(self, term: Terminal, todoapp: TodoApp):
+    def __init__(self, term: Terminal, todoapp: TodoList):
         super().__init__(term)
         self.mode = 'normal'
         self.i = 0

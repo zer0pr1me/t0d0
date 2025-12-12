@@ -84,8 +84,8 @@
         "done": true
     },
     {
-        "text": "Implement adding another todolists",
-        "done": false
+        "text": "Move all business logic from screens to TodoList",
+        "done": true
     },
     {
         "text": "Add dates for TODO items",
@@ -96,7 +96,7 @@
         "done": false
     },
     {
-        "text": "Move all business logic from screens to TodoApp",
+        "text": "Implement adding another todolists",
         "done": false
     }
 ]
