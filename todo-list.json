@@ -88,15 +88,15 @@
         "done": true
     },
     {
+        "text": "Implement adding another todolists",
+        "done": true
+    },
+    {
         "text": "Add dates for TODO items",
         "done": false
     },
     {
         "text": "Implement recurring tasks",
-        "done": false
-    },
-    {
-        "text": "Implement adding another todolists",
         "done": false
     }
 ]
