@@ -162,16 +162,37 @@
     },
     {
         "text": "Add dates for TODO items",
-        "done": false,
+        "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
+        "completed_at": null
+    },
+    {
+        "text": "Add schedule to today action",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-12",
+        "completed_at": null
+    },
+    {
+        "text": "Add moving scheduling to next/prev day feature",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-12",
         "completed_at": null
     },
     {
         "text": "Implement recurring tasks",
         "done": false,
         "created_at": "2025-12-12",
-        "scheduled_at": null,
+        "scheduled_at": "2025-12-12",
+        "completed_at": null
+    },
+    {
+        "text": "Backups",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-12",
         "completed_at": null
     }
 ]

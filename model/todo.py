@@ -1,5 +1,5 @@
 from typing import Any, Dict, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 
 @dataclass
@@ -7,7 +7,7 @@ class Todo:
     text: str
     done: bool
 
-    created_at: Optional[date] = None
+    created_at: Optional[date] = field(default_factory=date.today)
     scheduled_at: Optional[date] = None
     completed_at: Optional[date] = None
 

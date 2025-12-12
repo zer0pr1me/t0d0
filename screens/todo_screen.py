@@ -1,3 +1,4 @@
+from datetime import date
 from blessed import Terminal
 
 from model.todo import Todo
@@ -20,6 +21,11 @@ class TodoScreen(Screen):
     @todos.setter
     def todos(self, value):
         self.todoapp.todos = value
+
+
+    @hotkey(key='w')
+    def schedule_to_today(self):
+        self.todos[self.i].scheduled_at = date.today()
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
@@ -117,7 +123,8 @@ class TodoScreen(Screen):
                     continue
 
                 print(self.term.on_snow + self.term.black, end='')
-            print(f'[{"x" if todo.done else " "}] {todo.text}')
+            print(f'[{"x" if todo.done else " "}] {todo.text}', end='')
+            print(self.term.yellow + f' {todo.scheduled_at.isoformat() if todo.scheduled_at else ""}')
             print(self.term.normal)
 
 
