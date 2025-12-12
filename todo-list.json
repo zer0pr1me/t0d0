@@ -1,102 +1,177 @@
 [
     {
         "text": "Add test TODO items",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement focusing items",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement saving to/restoring from files",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement checking unchecking items",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Migrate to blessed",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Addition of item",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Deleting items",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Moving items upwards/backwards",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Editing item",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Moving items to top/bottom",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
-        "text": "\u0002Add top/bottom cursor movement",
-        "done": true
+        "text": "Add top/bottom cursor movement",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
-        "text": "\u0002Encapsulate app to separate class",
-        "done": true
+        "text": "Encapsulate app to separate class",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add sepate key operation to insert TODO items right on spot (after selected TODO)",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Abstract out input handling for each of modes to separate functions",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Write screen abstraction and decorator for handle keys",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Create TodoApp class with business logic",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Fix common hotkeys",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add menu screen with available todolists",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add possibility to add multiple hotkeys",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add possibility to create modal dialogs",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add confirmation dialog for deletion",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Move all business logic from screens to TodoList",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement adding another todolists",
-        "done": true
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Add dates for TODO items",
-        "done": false
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement recurring tasks",
-        "done": false
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
     }
 ]

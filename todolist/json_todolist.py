@@ -1,4 +1,3 @@
-from dataclasses import asdict
 import json
 from pathlib import Path
 
@@ -14,12 +13,12 @@ class JsonTodoList(TodoList):
     def save(self):
         self.dir.mkdir(parents=True, exist_ok=True)
         with open(self.todo_file, 'w') as f:
-            json.dump([asdict(todo) for todo in self.todos], f, indent=4)
+            json.dump([todo.to_dict() for todo in self.todos], f, indent=4)
 
     def load(self):
         if not self.todo_file.exists():
             self.todos = []
             return
         with open(self.todo_file, 'r') as f:
-            self.todos = [Todo(**todo) 
+            self.todos = [Todo.from_dict(todo) 
                             for todo in json.load(f)]

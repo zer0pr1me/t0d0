@@ -1,6 +1,34 @@
+from typing import Any, Dict, Optional
 from dataclasses import dataclass
+from datetime import date
 
 @dataclass
 class Todo:
     text: str
     done: bool
+
+    created_at: Optional[date] = None
+    scheduled_at: Optional[date] = None
+    completed_at: Optional[date] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'text': self.text,
+            'done': self.done,
+            'created_at': self.created_at.isoformat(),
+            'scheduled_at': self.scheduled_at.isoformat() if self.scheduled_at else None,
+            'completed_at': self.completed_at.isoformat() if self.completed_at else None,
+        }
+
+    @staticmethod
+    def from_dict(data: Dict[str, Any]) -> "Todo":
+        return Todo(
+            text=data['text'],
+            done=data['done'],
+            created_at=date.fromisoformat(data['created_at'])
+                if data.get('created_at') else date.today(),
+            scheduled_at=date.fromisoformat(data['scheduled_at'])
+                if data.get('scheduled_at') else None,
+            completed_at=date.fromisoformat(data['completed_at'])
+                if data.get('completed_at') else None,
+        )
