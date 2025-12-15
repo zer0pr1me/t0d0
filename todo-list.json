@@ -189,6 +189,20 @@
         "completed_at": null
     },
     {
+        "text": "Navigation when edit",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-13",
+        "completed_at": null
+    },
+    {
+        "text": "Multiselect",
+        "done": false,
+        "created_at": "2025-12-13",
+        "scheduled_at": null,
+        "completed_at": null
+    },
+    {
         "text": "Abstract out current selected todo to property",
         "done": false,
         "created_at": "2025-12-13",
@@ -218,13 +232,6 @@
     },
     {
         "text": "Readable dates",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": null,
-        "completed_at": null
-    },
-    {
-        "text": "Navigation when edit",
         "done": false,
         "created_at": "2025-12-12",
         "scheduled_at": null,

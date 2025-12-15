@@ -14,6 +14,7 @@ class TodoScreen(Screen):
         self.mode = 'normal'
         self.i = 0
         self.todoapp = todoapp
+        self.edit_cursor = 0
 
     @property
     def todos(self):
@@ -23,7 +24,9 @@ class TodoScreen(Screen):
     def todos(self, value):
         self.todoapp.todos = value
 
-
+    def _start_edit(self):
+        self.mode = 'edit'
+        self.edit_cursor = len(self.todos[self.i].text)
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
@@ -43,7 +46,7 @@ class TodoScreen(Screen):
         self.todos = [self.todos[i]] + self.todos[:i] + self.todos[i+1:]
         self.i = 0
 
-    @hotkey(key='b', ctrl = True)
+    @hotkey(key='e', ctrl = True)
     def move_todo_to_bottom(self):
         i = self.i
         self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
@@ -104,17 +107,17 @@ class TodoScreen(Screen):
     def add_todo_to_top(self):
         self.todos = [Todo('', False)] + self.todos
         self.i = 0
-        self.mode = 'edit'
+        self._start_edit()
 
     @hotkey(key='e', mode='normal')
     def edit_todo(self):
-        self.mode = 'edit'
+        self._start_edit()
 
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
         self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
         self.i += 1
-        self.mode = 'edit'
+        self._start_edit()
 
     @hotkey(key='d', mode='normal')
     def delete_todo(self):
@@ -133,8 +136,17 @@ class TodoScreen(Screen):
                 self.mode = 'normal' 
             elif name == 'KEY_BACKSPACE':
                 self.todos[self.i].text = self.todos[self.i].text[:-1]
+            elif key == 'b' and ctrl:
+                self.edit_cursor = max(self.edit_cursor - 1, 0)
+            elif key == 'f' and ctrl:
+                self.edit_cursor = min(self.edit_cursor + 1, len(self.todos[self.i].text))
             else: 
-                self.todos[self.i].text += key
+                if self.edit_cursor == len(self.todos[self.i].text):
+                    self.todos[self.i].text += key
+                else:
+                    text = self.todos[self.i].text 
+                    self.todos[self.i].text = text[:self.edit_cursor] + key + text[self.edit_cursor:]
+                self.edit_cursor += 1
 
 
     def render(self):
@@ -142,9 +154,15 @@ class TodoScreen(Screen):
             print(self.term.move_xy(0, i), end='')
             if i == self.i:
                 if self.mode == 'edit':
-                    print(f'[{"x" if todo.done else " "}] {todo.text}', end='')
+                    print(f'[{"x" if todo.done else " "}] {todo.text[:self.edit_cursor]}', end='')
                     # and cursor
-                    print(self.term.on_snow + self.term.black + ' ' + self.term.normal)
+                    if self.edit_cursor < len(todo.text):
+                        print(self.term.on_snow + 
+                              self.term.black + 
+                              todo.text[self.edit_cursor], end='')
+                        print(self.term.normal + todo.text[self.edit_cursor+1:])
+                    else:
+                        print(self.term.on_snow + self.term.black + ' ' + self.term.normal, end='')
                     continue
 
                 print(self.term.on_snow + self.term.black, end='')
