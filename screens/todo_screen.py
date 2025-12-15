@@ -116,7 +116,8 @@ class TodoScreen(Screen):
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
         self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
-        self.i += 1
+        if len(self.todos) != 1:
+            self.i += 1
         self._start_edit()
 
     @hotkey(key='d', mode='normal')
@@ -135,7 +136,9 @@ class TodoScreen(Screen):
             if name == 'KEY_ENTER' or name == 'KEY_ESCAPE' or (key == '[' and ctrl):
                 self.mode = 'normal' 
             elif name == 'KEY_BACKSPACE':
-                self.todos[self.i].text = self.todos[self.i].text[:-1]
+                text = self.todos[self.i].text
+                self.todos[self.i].text = text[:self.edit_cursor-1] + text[self.edit_cursor:]
+                self.edit_cursor = max(0, self.edit_cursor - 1)
             elif key == 'b' and ctrl:
                 self.edit_cursor = max(self.edit_cursor - 1, 0)
             elif key == 'f' and ctrl:
