@@ -51,7 +51,7 @@ class Screen(metaclass=HotkeysMeta):
 
                 self.render()
                 key = self.term.inkey()
-                self.handle_key(key.name, key.value, key._ctrl)
+                self.handle_key(key.name, key.value, key._ctrl, key._alt)
 
             if not self._transition_to:
                 print(self.term.clear, end='')

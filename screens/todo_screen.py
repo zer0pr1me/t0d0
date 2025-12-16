@@ -52,6 +52,26 @@ class TodoScreen(Screen):
         self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
         self.i = len(self.todos) - 1
 
+    @hotkey(key='s', alt = True)
+    def sort_todo_list(self):
+        def _key(todo: Todo) -> int:
+            score = 0
+            if todo.done:
+                score -= 1_000_000
+
+            if todo.scheduled_at:
+                score += (todo.scheduled_at - date.today()).days
+            else:
+                if todo.done:
+                    score -= 1_000_000
+                else:
+                    score += 1_000_000
+
+            return score
+
+        self.todos = sorted(self.todos, key=_key)
+
+
     @hotkey(key='w', mode='normal')
     def schedule_to_today(self):
         self.todos[self.i].scheduled_at = date.today()
@@ -130,8 +150,9 @@ class TodoScreen(Screen):
                                     on_confirm=_delete)
         self.show_dialog(dialog)
 
+
     @unhandled_key_handler()
-    def handle_editing(self, name: str, key: str, ctrl: bool):
+    def handle_editing(self, name: str, key: str, ctrl: bool, alt: bool):
         if self.mode == 'edit':
             if name == 'KEY_ENTER' or name == 'KEY_ESCAPE' or (key == '[' and ctrl):
                 self.mode = 'normal' 

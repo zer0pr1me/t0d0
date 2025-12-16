@@ -42,7 +42,7 @@ class CreateTodoListDialog(Dialog):
 
 
     @unhandled_key_handler()
-    def key_handler(self, name: str, key: str, ctrl: bool):
+    def key_handler(self, name: str, key: str, ctrl: bool, alt: bool):
         if name == 'KEY_BACKSPACE':
             self.name = self.name[:-1]
         else: 

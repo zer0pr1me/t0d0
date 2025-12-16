@@ -168,6 +168,20 @@
         "completed_at": null
     },
     {
+        "text": "Copying todos",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": null
+    },
+    {
+        "text": "Last item not displayed bug",
+        "done": true,
+        "created_at": "2025-12-15",
+        "scheduled_at": null,
+        "completed_at": null
+    },
+    {
         "text": "Add schedule to today action",
         "done": true,
         "created_at": "2025-12-12",
@@ -182,13 +196,6 @@
         "completed_at": null
     },
     {
-        "text": "Copying todos",
-        "done": true,
-        "created_at": "2025-12-12",
-        "scheduled_at": null,
-        "completed_at": null
-    },
-    {
         "text": "Navigation when edit",
         "done": true,
         "created_at": "2025-12-12",
@@ -196,10 +203,31 @@
         "completed_at": null
     },
     {
-        "text": "Last item not displayed bug",
+        "text": "Sort by scheduled at",
         "done": true,
-        "created_at": "2025-12-15",
-        "scheduled_at": null,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-13",
+        "completed_at": null
+    },
+    {
+        "text": "Show completed at for completed todo items instead",
+        "done": false,
+        "created_at": "2025-12-17",
+        "scheduled_at": "2025-12-17",
+        "completed_at": null
+    },
+    {
+        "text": "Implement recurring tasks",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-18",
+        "completed_at": null
+    },
+    {
+        "text": "Backups",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-14",
         "completed_at": null
     },
     {
@@ -217,37 +245,16 @@
         "completed_at": null
     },
     {
-        "text": "Abstract out current selected todo to property",
+        "text": "Readable dates",
         "done": false,
-        "created_at": "2025-12-13",
+        "created_at": "2025-12-12",
         "scheduled_at": null,
         "completed_at": null
     },
     {
-        "text": "Sort by scheduled at",
+        "text": "Abstract out current selected todo to property",
         "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-13",
-        "completed_at": null
-    },
-    {
-        "text": "Implement recurring tasks",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-13",
-        "completed_at": null
-    },
-    {
-        "text": "Backups",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-14",
-        "completed_at": null
-    },
-    {
-        "text": "Readable dates",
-        "done": false,
-        "created_at": "2025-12-12",
+        "created_at": "2025-12-13",
         "scheduled_at": null,
         "completed_at": null
     },
