@@ -154,7 +154,6 @@ class TodoScreen(Screen):
 
     def render(self):
         for i, todo in enumerate(self.todos):
-            print(self.term.move_xy(0, i), end='')
             if i == self.i:
                 if self.mode == 'edit':
                     print(f'[{"x" if todo.done else " "}] {todo.text[:self.edit_cursor]}', end='')
@@ -165,12 +164,12 @@ class TodoScreen(Screen):
                               todo.text[self.edit_cursor], end='')
                         print(self.term.normal + todo.text[self.edit_cursor+1:])
                     else:
-                        print(self.term.on_snow + self.term.black + ' ' + self.term.normal, end='')
+                        print(self.term.on_snow + self.term.black + ' ' + self.term.normal)
                     continue
 
                 print(self.term.on_snow + self.term.black, end='')
             print(f'[{"x" if todo.done else " "}] {todo.text}', end='')
-            print(self.term.yellow + f' {todo.scheduled_at.isoformat() if todo.scheduled_at else ""}')
+            print(self.term.yellow + f' {todo.scheduled_at.isoformat() if todo.scheduled_at else ""}', end='')
             print(self.term.normal)
 
 
