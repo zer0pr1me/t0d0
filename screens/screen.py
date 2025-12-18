@@ -31,27 +31,32 @@ class Screen(metaclass=HotkeysMeta):
             self.on_start()
             self.running = True
 
-            while self.running and not self._transition_to:
-                print(self.term.home + self.term.clear)
+            try:
+                while self.running and not self._transition_to:
+                    print(self.term.home + self.term.clear)
 
-                if self.dialog:
-                    if self.dialog.closed:
-                        self.dialog = None
+                    if self.dialog:
+                        if self.dialog.closed:
+                            self.dialog = None
+                            continue
+                        self.dialog.render()
+                        key = self.term.inkey()
+                        self.dialog.handle_key(key.name, key.value, key._ctrl, key._alt)
                         continue
-                    self.dialog.render()
+
+                    if self._dbg_msg != "":
+                        print(self._dbg_msg)
+                        self.term.inkey()
+                        self._dbg_msg = ""
+                        continue
+
+                    self.render()
                     key = self.term.inkey()
-                    self.dialog.handle_key(key.name, key.value, key._ctrl)
-                    continue
+                    self.handle_key(key.name, key.value, key._ctrl, key._alt)
+            except Exception:
+                self.on_exit()
+                raise
 
-                if self._dbg_msg != "":
-                    print(self._dbg_msg)
-                    self.term.inkey()
-                    self._dbg_msg = ""
-                    continue
-
-                self.render()
-                key = self.term.inkey()
-                self.handle_key(key.name, key.value, key._ctrl, key._alt)
 
             if not self._transition_to:
                 print(self.term.clear, end='')
