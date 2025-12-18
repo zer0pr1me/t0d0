@@ -221,7 +221,21 @@
         "done": true,
         "created_at": "2025-12-18",
         "scheduled_at": "2025-12-17",
-        "completed_at": "2025-12-18"
+        "completed_at": "2025-12-17"
+    },
+    {
+        "text": "Readable dates",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": "2025-12-17"
+    },
+    {
+        "text": "Readable dates with weekdays",
+        "done": false,
+        "created_at": "2025-12-18",
+        "scheduled_at": null,
+        "completed_at": null
     },
     {
         "text": "Implement recurring tasks",
@@ -248,13 +262,6 @@
         "text": "Multiselect",
         "done": false,
         "created_at": "2025-12-13",
-        "scheduled_at": null,
-        "completed_at": null
-    },
-    {
-        "text": "Readable dates",
-        "done": false,
-        "created_at": "2025-12-12",
         "scheduled_at": null,
         "completed_at": null
     },

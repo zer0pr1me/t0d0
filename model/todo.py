@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, timedelta
 
 @dataclass
 class Todo:
@@ -32,3 +32,15 @@ class Todo:
             completed_at=date.fromisoformat(data['completed_at'])
                 if data.get('completed_at') else None,
         )
+
+
+def human_date(d: date) -> str:
+    if d == date.today():
+        return "Today"
+    elif d == date.today() - timedelta(days=1):
+        return "Yesterday"
+    elif d == date.today() + timedelta(days=1):
+        return "Tomorrow"
+    else:
+        return d.strftime('%b %d, %Y')
+    # TODO: add weekdays

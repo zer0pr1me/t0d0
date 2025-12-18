@@ -2,7 +2,7 @@ from dataclasses import replace
 from datetime import date, timedelta
 from blessed import Terminal
 
-from model.todo import Todo
+from model.todo import Todo, human_date
 from todolist.todolist import TodoList
 from screens.screen import Screen
 from screens.hotkeys import hotkey, unhandled_key_handler
@@ -214,7 +214,7 @@ class TodoScreen(Screen):
                 if todo_date and todo_date < date.today():
                     date_color = self.term.orange
             if todo_date:
-                print(date_color + f' {todo_date}', end='')
+                print(date_color + f' {human_date(todo_date)}', end='')
             print(self.term.normal)
 
 
