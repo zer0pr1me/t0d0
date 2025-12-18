@@ -74,19 +74,32 @@ class TodoScreen(Screen):
 
     @hotkey(key='w', mode='normal')
     def schedule_to_today(self):
-        self.todos[self.i].scheduled_at = date.today()
+        if self.todos[self.i].done:
+            self.todos[self.i].completed_at = date.today()
+        else:
+            self.todos[self.i].scheduled_at = date.today()
 
     @hotkey(key='h', mode='normal')
     def move_schedule_prev(self):
-        if self.todos[self.i].scheduled_at is None:
-            self.schedule_to_today()
-        self.todos[self.i].scheduled_at -= timedelta(days=1)
+        if self.todos[self.i].done:
+            if self.todos[self.i].completed_at is None:
+                self.todos[self.i].completed_at = date.today()
+            self.todos[self.i].completed_at -= timedelta(days=1)
+        else:
+            if self.todos[self.i].scheduled_at is None:
+                self.schedule_to_today()
+            self.todos[self.i].scheduled_at -= timedelta(days=1)
 
     @hotkey(key='l', mode='normal')
     def move_schedule_next(self):
-        if self.todos[self.i].scheduled_at is None:
-            self.schedule_to_today()
-        self.todos[self.i].scheduled_at += timedelta(days=1)
+        if self.todos[self.i].done:
+            if self.todos[self.i].completed_at is None:
+                self.todos[self.i].completed_at = date.today()
+            self.todos[self.i].completed_at += timedelta(days=1)
+        else:
+            if self.todos[self.i].scheduled_at is None:
+                self.schedule_to_today()
+            self.todos[self.i].scheduled_at += timedelta(days=1)
 
     @hotkey(key='c', mode='normal')
     def copy_todo(self):
@@ -122,6 +135,7 @@ class TodoScreen(Screen):
     @hotkey(key=' ', mode='normal')
     def toggle_todo(self):
         self.todos[self.i].done = not self.todos[self.i].done
+        self.todos[self.i].completed_at = date.today()
 
     @hotkey(key='a', mode='normal')
     def add_todo_to_top(self):
@@ -190,7 +204,17 @@ class TodoScreen(Screen):
 
                 print(self.term.on_snow + self.term.black, end='')
             print(f'[{"x" if todo.done else " "}] {todo.text}', end='')
-            print(self.term.yellow + f' {todo.scheduled_at.isoformat() if todo.scheduled_at else ""}', end='')
+
+            if todo.done:
+                todo_date = todo.completed_at
+                date_color = self.term.green
+            else:
+                todo_date = todo.scheduled_at
+                date_color = self.term.yellow
+                if todo_date and todo_date < date.today():
+                    date_color = self.term.orange
+            if todo_date:
+                print(date_color + f' {todo_date}', end='')
             print(self.term.normal)
 
 
