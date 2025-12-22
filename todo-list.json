@@ -210,6 +210,13 @@
         "completed_at": "2025-12-16"
     },
     {
+        "text": "Readable dates",
+        "done": true,
+        "created_at": "2025-12-12",
+        "scheduled_at": null,
+        "completed_at": "2025-12-17"
+    },
+    {
         "text": "Show completed at for completed todo items instead",
         "done": true,
         "created_at": "2025-12-17",
@@ -224,31 +231,24 @@
         "completed_at": "2025-12-17"
     },
     {
-        "text": "Readable dates",
+        "text": "Adjust sorting to sort done by completed_at",
         "done": true,
-        "created_at": "2025-12-12",
-        "scheduled_at": null,
-        "completed_at": "2025-12-17"
+        "created_at": "2025-12-20",
+        "scheduled_at": "2025-12-20",
+        "completed_at": "2025-12-20"
+    },
+    {
+        "text": "Create github repo",
+        "done": true,
+        "created_at": "2025-12-20",
+        "scheduled_at": "2025-12-20",
+        "completed_at": "2025-12-20"
     },
     {
         "text": "Readable dates with weekdays",
         "done": false,
         "created_at": "2025-12-18",
         "scheduled_at": null,
-        "completed_at": null
-    },
-    {
-        "text": "Implement recurring tasks",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-18",
-        "completed_at": null
-    },
-    {
-        "text": "Backups",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-18",
         "completed_at": null
     },
     {
@@ -277,6 +277,20 @@
         "done": false,
         "created_at": "2025-12-15",
         "scheduled_at": null,
+        "completed_at": null
+    },
+    {
+        "text": "Implement recurring tasks",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-22",
+        "completed_at": null
+    },
+    {
+        "text": "Backups",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2025-12-22",
         "completed_at": null
     }
 ]

@@ -59,13 +59,15 @@ class TodoScreen(Screen):
             if todo.done:
                 score -= 1_000_000
 
-            if todo.scheduled_at:
-                score += (todo.scheduled_at - date.today()).days
-            else:
-                if todo.done:
-                    score -= 1_000_000
+            if todo.done:
+                if todo.completed_at:
+                    score += (todo.completed_at - date.today()).days
                 else:
-                    score += 1_000_000
+                    score -= 1_000_000
+            else:
+                score += 1_000_000
+                if todo.scheduled_at:
+                    score += (todo.scheduled_at - date.today()).days
 
             return score
 
