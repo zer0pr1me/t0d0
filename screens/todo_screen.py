@@ -12,9 +12,20 @@ class TodoScreen(Screen):
     def __init__(self, term: Terminal, todoapp: TodoList):
         super().__init__(term)
         self.mode = 'normal'
+        self.start_i = 0
         self.i = 0
         self.todoapp = todoapp
         self.edit_cursor = 0
+
+    @property
+    def visible_row_count(self) -> int:
+        max_visible = self.term.height
+        if self.start_i != 0:
+            max_visible -= 1
+        if len(self.todos) - self.start_i >= max_visible:
+            max_visible -= 1
+
+        return min(len(self.todos) - self.start_i, max_visible) - 1
 
     @property
     def todos(self):
@@ -121,10 +132,14 @@ class TodoScreen(Screen):
     @hotkey(key='j', mode='normal')
     def move_down(self):
         self.i = min(self.i + 1, len(self.todos) - 1)
+        if self.visible_row_count - 1 <= self.i - self.start_i:
+            self.start_i += 1
 
     @hotkey(key='k', mode='normal')
     def move_up(self):
         self.i = max(self.i - 1, 0)
+        if self.i < self.start_i:
+            self.start_i -= 1
 
     @hotkey(key='t', mode='normal')
     def move_to_top(self):
@@ -190,7 +205,13 @@ class TodoScreen(Screen):
 
 
     def render(self):
-        for i, todo in enumerate(self.todos):
+        start_i = self.start_i
+        if start_i != 0:
+            print(" ... ")
+
+        end_i = start_i + self.visible_row_count
+
+        for i, todo in enumerate(self.todos[start_i:end_i], start_i):
             if i == self.i:
                 if self.mode == 'edit':
                     print(f'[{"x" if todo.done else " "}] {todo.text[:self.edit_cursor]}', end='')
@@ -218,6 +239,9 @@ class TodoScreen(Screen):
             if todo_date:
                 print(date_color + f' {human_date(todo_date)}', end='')
             print(self.term.normal)
+
+        if len(self.todos) > end_i: 
+            print(" ... ")
 
 
     def on_start(self):
