@@ -35,12 +35,39 @@ class Todo:
 
 
 def human_date(d: date) -> str:
-    if d == date.today():
+    today = date.today()
+    for i in range(7):
+        day = today - timedelta(days=i)
+        if day.weekday() == 0:
+            monday = day
+            break
+    def is_current_week():
+        diff = (d - monday).days
+        return diff >= 0 and diff < 7
+
+    def is_next_week():
+        next_monday = monday + timedelta(days=7)
+        diff = (d - next_monday).days
+        return diff >= 0 and diff < 7
+
+    def is_last_week():
+        last_monday = monday - timedelta(days=7)
+        diff = (d - last_monday).days
+        return diff >= 0 and diff < 7
+
+    weekday = d.strftime('%A')
+
+    if d == today:
         return "Today"
-    elif d == date.today() - timedelta(days=1):
+    elif d == today - timedelta(days=1):
         return "Yesterday"
-    elif d == date.today() + timedelta(days=1):
+    elif d == today + timedelta(days=1):
         return "Tomorrow"
+    elif is_current_week():
+        return weekday 
+    elif is_next_week():
+        return f'Next {weekday}'
+    elif is_last_week():
+        return f'Last {weekday}'
     else:
         return d.strftime('%b %d, %Y')
-    # TODO: add weekdays
