@@ -1,16 +1,18 @@
 from abc import ABC, abstractmethod
 
-class TodoList(ABC):
+from todoapp.project import Project
+
+class Storage(ABC):
     def __init__(self, name: str):
         self.todos = []
         self.name = name
 
     @abstractmethod
-    def save(self):
+    def save(self, project: Project):
         pass
 
     @abstractmethod
-    def load(self):
+    def load(self) -> Project:
         pass
 
 

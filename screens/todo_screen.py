@@ -3,18 +3,20 @@ from datetime import date, timedelta
 from blessed import Terminal
 
 from model.todo import Todo, human_date
-from todolist.todolist import TodoList
 from screens.screen import Screen
 from screens.hotkeys import hotkey, unhandled_key_handler
 from screens.dialogs.confirmation_dialog import ConfirmationDialog
+from storage.storage import Storage
+from todoapp.project import Project
 
 class TodoScreen(Screen):
-    def __init__(self, term: Terminal, todoapp: TodoList):
+    def __init__(self, term: Terminal, storage: Storage, project: Project):
         super().__init__(term)
+        self.project = project
+        self.storage = storage
         self.mode = 'normal'
         self.start_i = 0
         self.i = 0
-        self.todoapp = todoapp
         self.edit_cursor = 0
 
     @property
@@ -29,10 +31,11 @@ class TodoScreen(Screen):
 
     @property
     def todos(self):
-        return self.todoapp.todos
+        return self.project.todos
 
     @todos.setter
     def todos(self, value):
+        self.project.todos = value
         self.todoapp.todos = value
 
     def _start_edit(self):
@@ -42,55 +45,32 @@ class TodoScreen(Screen):
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
         if self.i != len(self.todos) - 1:
-            self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
+            self.project.swap(self.i, self.i+1)
             self.i += 1
 
     @hotkey(key='p', ctrl = True)
     def swap_with_prev(self):
         if self.i != 0:
             self.i -= 1
-            self.todos[self.i], self.todos[self.i+1] = self.todos[self.i+1], self.todos[self.i]
+            self.project.swap(self.i, self.i+1)
 
     @hotkey(key='t', ctrl = True)
     def move_todo_to_top(self):
-        i = self.i
-        self.todos = [self.todos[i]] + self.todos[:i] + self.todos[i+1:]
+        self.project.move(old_pos=self.i, new_pos=0)
         self.i = 0
 
     @hotkey(key='e', ctrl = True)
     def move_todo_to_bottom(self):
-        i = self.i
-        self.todos = self.todos[:i] + self.todos[i+1:] + [self.todos[i]] 
-        self.i = len(self.todos) - 1
+        self.project.move(old_pos=self.i, new_pos=len(self.project.todos))
+        self.i = len(self.project.todos) - 1
 
     @hotkey(key='s', alt = True)
     def sort_todo_list(self):
-        def _key(todo: Todo) -> int:
-            score = 0
-            if todo.done:
-                score -= 1_000_000
-
-            if todo.done:
-                if todo.completed_at:
-                    score += (todo.completed_at - date.today()).days
-                else:
-                    score -= 1_000_000
-            else:
-                score += 1_000_000
-                if todo.scheduled_at:
-                    score += (todo.scheduled_at - date.today()).days
-
-            return score
-
-        self.todos = sorted(self.todos, key=_key)
-
+        self.project.sort()
 
     @hotkey(key='w', mode='normal')
     def schedule_to_today(self):
-        if self.todos[self.i].done:
-            self.todos[self.i].completed_at = date.today()
-        else:
-            self.todos[self.i].scheduled_at = date.today()
+        self.project.schedule(self.i, date=date.today())
 
     @hotkey(key='h', mode='normal')
     def move_schedule_prev(self):
@@ -245,9 +225,9 @@ class TodoScreen(Screen):
 
 
     def on_start(self):
-        self.todoapp.load()
+        self.project = self.storage.load()
 
 
     def on_exit(self):
-        self.todoapp.save()
+        self.storage.save(self.project)
 

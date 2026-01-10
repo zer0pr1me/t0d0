@@ -6,10 +6,10 @@ from screens.dialogs.create_todo_list_dialog import CreateTodoListDialog
 from screens.hotkeys import hotkey
 from screens.screen import Screen
 from screens.todo_screen import TodoScreen
-from todolist.config_todolist import ConfigTodoList
-from todolist.json_todolist import JsonTodoList
-from todolist.todolist import TodoList
-
+from storage.config_storage import ConfigStorage
+from storage.json_storage import JsonStorage
+from storage.storage import Storage 
+from todoapp.project import Project
 from globals import CONFIG_FILE
 
 from blessed import Terminal
@@ -76,12 +76,16 @@ class MenuScreen(Screen):
     def open_todolist(self):
         tl_data = self.config.todolists[self.i]
         if tl_data.storage_type == 'json':
-            todolist = JsonTodoList(tl_data.name, tl_data.args['dir'])
+            storage = JsonStorage(tl_data.name, tl_data.args['dir'])
         elif tl_data.storage_type == 'config':
-            todolist = ConfigTodoList(tl_data.name)
+            storage = ConfigStorage(tl_data.name)
         else:
             raise Exception(f'Unknown todo list storage type: {tl_data.storage_type}')
-        self.to_screen(TodoScreen(self.term, todolist))
+
+        project = Project(storage.load())
+        self.to_screen(TodoScreen(self.term, 
+                                  storage=storage,
+                                  project=project))
 
     
     @hotkey(key='c')

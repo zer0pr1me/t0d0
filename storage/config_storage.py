@@ -3,9 +3,9 @@ import json
 from pathlib import Path
 
 from model.todo import Todo
-from todolist.json_todolist import JsonTodoList
+from storage.json_storage import JsonStorage
 from globals import CONFIG_DIR
 
-class ConfigTodoList(JsonTodoList):
+class ConfigStorage(JsonStorage):
     def __init__(self, name: str):
         super().__init__(name, CONFIG_DIR / name)
