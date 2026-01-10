@@ -1,3 +1,4 @@
+import dataclasses
 from typing import List
 from datetime import date, timedelta
 
@@ -54,13 +55,32 @@ class Project:
         else:
             self.todos[i].scheduled_at = date
 
-    def copy(self, i: int):
-        copy = replace(self.todos[self.i], 
-                       done=False, 
-                       created_at=date.today(), 
-                       scheduled_at=None)
+    def insert_empty(self, i: int) -> bool:
+        # TODO: bounds decorator?
+        if i < 0 and i >= len(self.todos):
+            return False
 
-        self.todos = self.todos[:self.i+1] + [copy] + self.todos[self.i+1:]
+        self.todos = self.todos[:i+1] + [Todo('', False)] + self.todos[i+1:]
+        return True
+
+
+    def delete(self, i: int) -> bool:
+        if i < 0 and i >= len(self.todos):
+            return False
+        self.todos = self.todos[:i] + self.todos[i+1:]
+        return True
+
+    def copy(self, i: int) -> bool:
+        if i >= len(self.todos) or i < 0:
+            return False
+        copy = dataclasses.replace(self.todos[i], 
+                                   done=False, 
+                                   created_at=date.today(), 
+                                   scheduled_at=None)
+
+        self.todos = self.todos[:i+1] + [copy] + self.todos[i+1:]
+
+        return True
 
     def swap_with_next(self, i: int) -> bool:
         return self.swap(i, i+1)
@@ -93,3 +113,4 @@ class Project:
             if self.todos[i].scheduled_at is None:
                 self.schedule_to_today()
             self.todos[i].scheduled_at -= timedelta(days=1)
+

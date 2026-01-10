@@ -1,4 +1,3 @@
-from dataclasses import replace
 from datetime import date
 from blessed import Terminal
 
@@ -78,14 +77,8 @@ class TodoScreen(Screen):
 
     @hotkey(key='c', mode='normal')
     def copy_todo(self):
-        copy = replace(self.todos[self.i], 
-                       done=False, 
-                       created_at=date.today(), 
-                       scheduled_at=None)
-
-        self.todos = self.todos[:self.i+1] + [copy] + self.todos[self.i+1:]
-        self.i += 1
-
+        if self.project.copy(self.i):
+            self.i += 1
 
     @hotkey(key='q', mode='normal')
     def quit(self):
@@ -118,9 +111,9 @@ class TodoScreen(Screen):
 
     @hotkey(key='a', mode='normal')
     def add_todo_to_top(self):
-        self.todos = [Todo('', False)] + self.todos
-        self.i = 0
-        self._start_edit()
+        if self.project.insert_empty(0):
+            self.i = 0
+            self._start_edit()
 
     @hotkey(key='e', mode='normal')
     def edit_todo(self):
@@ -128,16 +121,16 @@ class TodoScreen(Screen):
 
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
-        self.todos = self.todos[:self.i+1] + [Todo('', False)] + self.todos[self.i+1:]
-        if len(self.todos) != 1:
-            self.i += 1
-        self._start_edit()
+        if self.project.insert_empty(self.i):
+            if self.project.visible_todos_count != 1:
+                self.i += 1
+            self._start_edit()
 
     @hotkey(key='d', mode='normal')
     def delete_todo(self):
         def _delete():
-            self.todos = self.todos[:self.i] + self.todos[self.i+1:]
-            self.i = min(self.i, len(self.todos) - 1)
+            if self.project.delete(self.i):
+                self.i = min(self.i, self.project.visible_todos_count - 1)
         dialog = ConfirmationDialog(term=self.term,
                                     msg='Do you want to delete this TODO entry?',
                                     on_confirm=_delete)
