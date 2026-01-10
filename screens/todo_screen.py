@@ -1,5 +1,5 @@
 from dataclasses import replace
-from datetime import date, timedelta
+from datetime import date
 from blessed import Terminal
 
 from model.todo import Todo, human_date
@@ -70,25 +70,11 @@ class TodoScreen(Screen):
 
     @hotkey(key='h', mode='normal')
     def move_schedule_prev(self):
-        if self.todos[self.i].done:
-            if self.todos[self.i].completed_at is None:
-                self.todos[self.i].completed_at = date.today()
-            self.todos[self.i].completed_at -= timedelta(days=1)
-        else:
-            if self.todos[self.i].scheduled_at is None:
-                self.schedule_to_today()
-            self.todos[self.i].scheduled_at -= timedelta(days=1)
+        self.project.decrement_scheduled_at(self.i)
 
     @hotkey(key='l', mode='normal')
     def move_schedule_next(self):
-        if self.todos[self.i].done:
-            if self.todos[self.i].completed_at is None:
-                self.todos[self.i].completed_at = date.today()
-            self.todos[self.i].completed_at += timedelta(days=1)
-        else:
-            if self.todos[self.i].scheduled_at is None:
-                self.schedule_to_today()
-            self.todos[self.i].scheduled_at += timedelta(days=1)
+        self.project.increment_scheduled_at(self.i)
 
     @hotkey(key='c', mode='normal')
     def copy_todo(self):

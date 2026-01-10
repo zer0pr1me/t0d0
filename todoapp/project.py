@@ -1,5 +1,5 @@
 from typing import List
-from datetime import date
+from datetime import date, timedelta
 
 from model.todo import Todo
 
@@ -74,3 +74,22 @@ class Project:
     def move_to_bottom(self, i: int) -> bool:
         return self.project.move(old_pos=self.i, new_pos=len(self.project.todos) - 1)
 
+    def increment_scheduled_at(self, i: int):
+        if self.todos[i].done:
+            if self.todos[i].completed_at is None:
+                self.todos[i].completed_at = date.today()
+            self.todos[i].completed_at += timedelta(days=1)
+        else:
+            if self.todos[i].scheduled_at is None:
+                self.schedule_to_today()
+            self.todos[i].scheduled_at += timedelta(days=1)
+
+    def decrement_scheduled_at(self, i: int):
+        if self.todos[i].done:
+            if self.todos[i].completed_at is None:
+                self.todos[i].completed_at = date.today()
+            self.todos[i].completed_at -= timedelta(days=1)
+        else:
+            if self.todos[i].scheduled_at is None:
+                self.schedule_to_today()
+            self.todos[i].scheduled_at -= timedelta(days=1)
