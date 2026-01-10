@@ -48,14 +48,17 @@ class TodoScreen(Screen):
             self.i -= 1
 
     @hotkey(key='t', ctrl = True)
-    def move_todo_to_top(self):
-        self.project.move(old_pos=self.i, new_pos=0)
-        self.i = 0
+    def move_to_top(self):
+        # TODO: fix hotkey
+        self.debug_msg("HELLO")
+        if self.project.move_to_top(self.i):
+            self.i = 0
 
     @hotkey(key='e', ctrl = True)
-    def move_todo_to_bottom(self):
-        self.project.move(old_pos=self.i, new_pos=len(self.project.todos))
-        self.i = len(self.project.todos) - 1
+    def move_to_bottom(self):
+        # TODO: fix hotkey
+        if self.project.move_to_bottom(self.i):
+            self.i = self.project.visible_todos_count - 1
 
     @hotkey(key='s', alt = True)
     def sort_todo_list(self):

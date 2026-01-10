@@ -7,6 +7,10 @@ class Project:
     def __init__(self, todos: List[Todo]):
         self.todos = todos
 
+    @property
+    def visible_todos_count(self) -> int:
+        return len(self.todos)
+
     def swap(self, i: int, j: int) -> bool:
         if i < 0 or j < 0:
             return False
@@ -15,13 +19,16 @@ class Project:
         self.todos[i], self.todos[j] = self.todos[j], self.todos[i]
         return True
 
-    def move(self, old_pos: int, new_pos: int):
+    def move(self, old_pos: int, new_pos: int) -> bool:
+        if new_pos < len(self.todos) or old_pos < len(self.todos):
+            return False
         item = self.todos[old_pos]
         self.todos = self.todos[:old_pos] + self.todos[old_pos+1:]
         self.todos = self.todos[:new_pos] + [item] + self.todos[new_pos:]
+        return True
 
     def sort(self):
-        def _key(todo: Todo) -> int:
+        def _key(todo: Todo) -> int: 
             score = 0
             if todo.done:
                 score -= 1_000_000
@@ -60,3 +67,10 @@ class Project:
 
     def swap_with_prev(self, i: int) -> bool:
         return self.swap(i, i-1)
+
+    def move_to_top(self, i: int) -> bool:
+        return self.project.move(old_pos=i, new_pos=0)
+
+    def move_to_bottom(self, i: int) -> bool:
+        return self.project.move(old_pos=self.i, new_pos=len(self.project.todos) - 1)
+
