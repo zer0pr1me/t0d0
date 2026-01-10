@@ -7,8 +7,13 @@ class Project:
     def __init__(self, todos: List[Todo]):
         self.todos = todos
 
-    def swap(self, i: int, j: int):
+    def swap(self, i: int, j: int) -> bool:
+        if i < 0 or j < 0:
+            return False
+        if i >= len(self.todos) or j >= len(self.todos):
+            return False
         self.todos[i], self.todos[j] = self.todos[j], self.todos[i]
+        return True
 
     def move(self, old_pos: int, new_pos: int):
         item = self.todos[old_pos]
@@ -42,3 +47,16 @@ class Project:
         else:
             self.todos[i].scheduled_at = date
 
+    def copy(self, i: int):
+        copy = replace(self.todos[self.i], 
+                       done=False, 
+                       created_at=date.today(), 
+                       scheduled_at=None)
+
+        self.todos = self.todos[:self.i+1] + [copy] + self.todos[self.i+1:]
+
+    def swap_with_next(self, i: int) -> bool:
+        return self.swap(i, i+1)
+
+    def swap_with_prev(self, i: int) -> bool:
+        return self.swap(i, i-1)

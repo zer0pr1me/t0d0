@@ -33,25 +33,19 @@ class TodoScreen(Screen):
     def todos(self):
         return self.project.todos
 
-    @todos.setter
-    def todos(self, value):
-        self.project.todos = value
-
     def _start_edit(self):
         self.mode = 'edit'
         self.edit_cursor = len(self.todos[self.i].text)
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
-        if self.i != len(self.todos) - 1:
-            self.project.swap(self.i, self.i+1)
+        if self.project.swap_with_next(self.i):
             self.i += 1
 
     @hotkey(key='p', ctrl = True)
     def swap_with_prev(self):
-        if self.i != 0:
+        if self.project.swap_with_prev(self.i):
             self.i -= 1
-            self.project.swap(self.i, self.i+1)
 
     @hotkey(key='t', ctrl = True)
     def move_todo_to_top(self):
