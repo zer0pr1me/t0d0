@@ -36,7 +36,6 @@ class TodoScreen(Screen):
     @todos.setter
     def todos(self, value):
         self.project.todos = value
-        self.todoapp.todos = value
 
     def _start_edit(self):
         self.mode = 'edit'

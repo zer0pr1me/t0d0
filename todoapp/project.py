@@ -35,10 +35,10 @@ class Project:
 
         self.todos = sorted(self.todos, key=_key)
 
-    def schedule_to(self, i: int, date: date):
+    def schedule(self, i: int, date: date):
         # TODO: use separate function for setting completion
-        if self.todos[self.i].done:
-            self.todos[self.i].completed_at = date
+        if self.todos[i].done:
+            self.todos[i].completed_at = date
         else:
-            self.todos[self.i].scheduled_at = date
+            self.todos[i].scheduled_at = date
 
