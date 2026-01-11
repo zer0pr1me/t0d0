@@ -266,16 +266,44 @@
         "completed_at": "2026-01-10"
     },
     {
-        "text": "Add last modified date(time)",
+        "text": "Think how to move remained business logic to project class",
+        "done": true,
+        "created_at": "2026-01-10",
+        "scheduled_at": "2026-01-11",
+        "completed_at": "2026-01-11"
+    },
+    {
+        "text": "Implement recurring tasks",
         "done": false,
-        "created_at": "2026-01-07",
-        "scheduled_at": "2026-01-10",
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-01-12",
         "completed_at": null
     },
     {
-        "text": "Think how to move remained business logic to project class",
+        "text": "Backups",
         "done": false,
-        "created_at": "2026-01-10",
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-01-12",
+        "completed_at": null
+    },
+    {
+        "text": "Add last modified date(time)",
+        "done": false,
+        "created_at": "2026-01-07",
+        "scheduled_at": "2026-01-12",
+        "completed_at": null
+    },
+    {
+        "text": "Show/hide Done",
+        "done": false,
+        "created_at": "2025-12-27",
+        "scheduled_at": "2026-01-12",
+        "completed_at": null
+    },
+    {
+        "text": "Fix move to top and move to bottom (scrolling)",
+        "done": false,
+        "created_at": "2026-01-11",
         "scheduled_at": "2026-01-11",
         "completed_at": null
     },
@@ -283,28 +311,21 @@
         "text": "Fix Scrolling",
         "done": false,
         "created_at": "2025-12-27",
-        "scheduled_at": "2026-01-11",
-        "completed_at": null
-    },
-    {
-        "text": "Show/hide Done",
-        "done": false,
-        "created_at": "2025-12-27",
-        "scheduled_at": "2026-01-10",
+        "scheduled_at": "2026-01-12",
         "completed_at": null
     },
     {
         "text": "Multiselect",
         "done": false,
         "created_at": "2025-12-13",
-        "scheduled_at": null,
+        "scheduled_at": "2026-01-12",
         "completed_at": null
     },
     {
         "text": "Abstract out current selected todo to property",
         "done": false,
         "created_at": "2025-12-13",
-        "scheduled_at": null,
+        "scheduled_at": "2026-01-12",
         "completed_at": null
     },
     {
@@ -312,20 +333,6 @@
         "done": false,
         "created_at": "2025-12-15",
         "scheduled_at": null,
-        "completed_at": null
-    },
-    {
-        "text": "Implement recurring tasks",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-22",
-        "completed_at": null
-    },
-    {
-        "text": "Backups",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2025-12-22",
         "completed_at": null
     }
 ]

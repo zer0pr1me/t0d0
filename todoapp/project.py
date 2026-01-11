@@ -101,7 +101,7 @@ class Project:
             self.todos[i].completed_at += timedelta(days=1)
         else:
             if self.todos[i].scheduled_at is None:
-                self.schedule_to_today()
+                self.schedule(i, date=date.today())
             self.todos[i].scheduled_at += timedelta(days=1)
 
     def decrement_scheduled_at(self, i: int):
@@ -111,6 +111,6 @@ class Project:
             self.todos[i].completed_at -= timedelta(days=1)
         else:
             if self.todos[i].scheduled_at is None:
-                self.schedule_to_today()
+                self.schedule(i, date=date.today())
             self.todos[i].scheduled_at -= timedelta(days=1)
 

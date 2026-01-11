@@ -102,7 +102,7 @@ class TodoScreen(Screen):
 
     @hotkey(key='b', mode='normal')
     def move_to_bottom(self):
-        self.i = len(self.todos) - 1
+        self.i = self.project.visible_todos_count - 1
 
     @hotkey(key=' ', mode='normal')
     def toggle_todo(self):
