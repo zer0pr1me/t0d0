@@ -20,17 +20,24 @@ class TodoScreen(Screen):
 
     @property
     def visible_row_count(self) -> int:
+        total_count = self.project.todos_count
         max_visible = self.term.height
         if self.start_i != 0:
             max_visible -= 1
-        if len(self.todos) - self.start_i >= max_visible:
+        if total_count - self.start_i >= max_visible:
             max_visible -= 1
 
-        return min(len(self.todos) - self.start_i, max_visible) - 1
+        return min(total_count - self.start_i, max_visible) - 1
 
     @property
     def todos(self):
         return self.project.todos
+
+    def _ensure_selected_is_seen(self):
+        if self.i < self.start_i:
+            self.start_i = self.i
+        if self.i >= self.start_i + self.visible_row_count:
+            self.start_i += self.i - (self.start_i + self.visible_row_count) + 1
 
     def _start_edit(self):
         self.mode = 'edit'
@@ -49,7 +56,6 @@ class TodoScreen(Screen):
     @hotkey(key='t', ctrl = True)
     def move_to_top(self):
         # TODO: fix hotkey
-        self.debug_msg("HELLO")
         if self.project.move_to_top(self.i):
             self.i = 0
 
@@ -57,7 +63,7 @@ class TodoScreen(Screen):
     def move_to_bottom(self):
         # TODO: fix hotkey
         if self.project.move_to_bottom(self.i):
-            self.i = self.project.visible_todos_count - 1
+            self.i = self.project.todos_count - 1
 
     @hotkey(key='s', alt = True)
     def sort_todo_list(self):
@@ -87,22 +93,22 @@ class TodoScreen(Screen):
     @hotkey(key='j', mode='normal')
     def move_down(self):
         self.i = min(self.i + 1, len(self.todos) - 1)
-        if self.visible_row_count - 1 <= self.i - self.start_i:
-            self.start_i += 1
+        self._ensure_selected_is_seen()
 
     @hotkey(key='k', mode='normal')
     def move_up(self):
         self.i = max(self.i - 1, 0)
-        if self.i < self.start_i:
-            self.start_i -= 1
+        self._ensure_selected_is_seen()
 
     @hotkey(key='t', mode='normal')
     def move_to_top(self):
         self.i = 0
+        self._ensure_selected_is_seen()
 
     @hotkey(key='b', mode='normal')
     def move_to_bottom(self):
-        self.i = self.project.visible_todos_count - 1
+        self.i = self.project.todos_count - 1
+        self._ensure_selected_is_seen()
 
     @hotkey(key=' ', mode='normal')
     def toggle_todo(self):
@@ -122,7 +128,7 @@ class TodoScreen(Screen):
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
         if self.project.insert_empty(self.i):
-            if self.project.visible_todos_count != 1:
+            if self.project.todos_count != 1:
                 self.i += 1
             self._start_edit()
 
@@ -130,7 +136,7 @@ class TodoScreen(Screen):
     def delete_todo(self):
         def _delete():
             if self.project.delete(self.i):
-                self.i = min(self.i, self.project.visible_todos_count - 1)
+                self.i = min(self.i, self.project.todos_count - 1)
         dialog = ConfirmationDialog(term=self.term,
                                     msg='Do you want to delete this TODO entry?',
                                     on_confirm=_delete)

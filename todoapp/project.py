@@ -9,7 +9,7 @@ class Project:
         self.todos = todos
 
     @property
-    def visible_todos_count(self) -> int:
+    def todos_count(self) -> int:
         return len(self.todos)
 
     def swap(self, i: int, j: int) -> bool:

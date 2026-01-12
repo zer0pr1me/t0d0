@@ -302,10 +302,10 @@
     },
     {
         "text": "Fix move to top and move to bottom (scrolling)",
-        "done": false,
+        "done": true,
         "created_at": "2026-01-11",
         "scheduled_at": "2026-01-11",
-        "completed_at": null
+        "completed_at": "2026-01-13"
     },
     {
         "text": "Fix Scrolling",
