@@ -273,34 +273,6 @@
         "completed_at": "2026-01-11"
     },
     {
-        "text": "Implement recurring tasks",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2026-01-12",
-        "completed_at": null
-    },
-    {
-        "text": "Backups",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2026-01-12",
-        "completed_at": null
-    },
-    {
-        "text": "Add last modified date(time)",
-        "done": false,
-        "created_at": "2026-01-07",
-        "scheduled_at": "2026-01-12",
-        "completed_at": null
-    },
-    {
-        "text": "Show/hide Done",
-        "done": false,
-        "created_at": "2025-12-27",
-        "scheduled_at": "2026-01-12",
-        "completed_at": null
-    },
-    {
         "text": "Fix move to top and move to bottom (scrolling)",
         "done": true,
         "created_at": "2026-01-11",
@@ -309,23 +281,23 @@
     },
     {
         "text": "Fix Scrolling",
-        "done": false,
+        "done": true,
         "created_at": "2025-12-27",
-        "scheduled_at": "2026-01-12",
+        "scheduled_at": "2026-01-23",
+        "completed_at": "2026-01-21"
+    },
+    {
+        "text": "Google Drive: Authorization",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-01-21",
         "completed_at": null
     },
     {
-        "text": "Multiselect",
+        "text": "Add last modified date(time)",
         "done": false,
-        "created_at": "2025-12-13",
-        "scheduled_at": "2026-01-12",
-        "completed_at": null
-    },
-    {
-        "text": "Abstract out current selected todo to property",
-        "done": false,
-        "created_at": "2025-12-13",
-        "scheduled_at": "2026-01-12",
+        "created_at": "2026-01-07",
+        "scheduled_at": "2026-01-21",
         "completed_at": null
     },
     {
@@ -333,6 +305,62 @@
         "done": false,
         "created_at": "2025-12-15",
         "scheduled_at": null,
+        "completed_at": null
+    },
+    {
+        "text": "Google Drive: Save/Load",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-01-22",
+        "completed_at": null
+    },
+    {
+        "text": "Show/hide Done",
+        "done": false,
+        "created_at": "2025-12-27",
+        "scheduled_at": "2026-01-22",
+        "completed_at": null
+    },
+    {
+        "text": "Google Drive: Migrate from another storages",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-01-23",
+        "completed_at": null
+    },
+    {
+        "text": "Implement recurring tasks",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-01-24",
+        "completed_at": null
+    },
+    {
+        "text": "Multiselect",
+        "done": false,
+        "created_at": "2025-12-13",
+        "scheduled_at": "2026-01-24",
+        "completed_at": null
+    },
+    {
+        "text": "Backups",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-01-25",
+        "completed_at": null
+    },
+    {
+        "text": "Abstract out current selected todo to property",
+        "done": false,
+        "created_at": "2025-12-13",
+        "scheduled_at": "2026-01-25",
+        "completed_at": null
+    },
+    {
+        "text": "Fix small bug in scrolling",
+        "done": false,
+        "created_at": "2026-01-21",
+        "scheduled_at": "2026-01-26",
         "completed_at": null
     }
 ]

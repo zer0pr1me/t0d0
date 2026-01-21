@@ -37,7 +37,7 @@ class TodoScreen(Screen):
         if self.i < self.start_i:
             self.start_i = self.i
         if self.i >= self.start_i + self.visible_row_count:
-            self.start_i += self.i - (self.start_i + self.visible_row_count) + 1
+            self.start_i += self.i - (self.start_i + self.visible_row_count)
 
     def _start_edit(self):
         self.mode = 'edit'
@@ -170,7 +170,7 @@ class TodoScreen(Screen):
         if start_i != 0:
             print(" ... ")
 
-        end_i = start_i + self.visible_row_count
+        end_i = start_i + self.visible_row_count + 1
 
         for i, todo in enumerate(self.todos[start_i:end_i], start_i):
             if i == self.i:
@@ -201,7 +201,7 @@ class TodoScreen(Screen):
                 print(date_color + f' {human_date(todo_date)}', end='')
             print(self.term.normal)
 
-        if len(self.todos) > end_i: 
+        if self.visible_row_count > end_i: 
             print(" ... ")
 
 
