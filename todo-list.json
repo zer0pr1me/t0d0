@@ -4,363 +4,415 @@
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797497"
     },
     {
         "text": "Implement focusing items",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797502"
     },
     {
         "text": "Implement saving to/restoring from files",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797513"
     },
     {
         "text": "Implement checking unchecking items",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797515"
     },
     {
         "text": "Migrate to blessed",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797518"
     },
     {
         "text": "Addition of item",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797520"
     },
     {
         "text": "Deleting items",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797523"
     },
     {
         "text": "Moving items upwards/backwards",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797525"
     },
     {
         "text": "Editing item",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797527"
     },
     {
         "text": "Moving items to top/bottom",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797530"
     },
     {
         "text": "Add top/bottom cursor movement",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797532"
     },
     {
         "text": "Encapsulate app to separate class",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797535"
     },
     {
         "text": "Add sepate key operation to insert TODO items right on spot (after selected TODO)",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797537"
     },
     {
         "text": "Abstract out input handling for each of modes to separate functions",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797539"
     },
     {
         "text": "Write screen abstraction and decorator for handle keys",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797541"
     },
     {
         "text": "Create TodoApp class with business logic",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797544"
     },
     {
         "text": "Fix common hotkeys",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797546"
     },
     {
         "text": "Add menu screen with available todolists",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797548"
     },
     {
         "text": "Add possibility to add multiple hotkeys",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797551"
     },
     {
         "text": "Add possibility to create modal dialogs",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797553"
     },
     {
         "text": "Add confirmation dialog for deletion",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797555"
     },
     {
         "text": "Move all business logic from screens to TodoList",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797557"
     },
     {
         "text": "Implement adding another todolists",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797559"
     },
     {
         "text": "Add dates for TODO items",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797562"
     },
     {
         "text": "Copying todos",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797564"
     },
     {
         "text": "Last item not displayed bug",
         "done": true,
         "created_at": "2025-12-15",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797567"
     },
     {
         "text": "Add schedule to today action",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": "2025-12-12",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797569"
     },
     {
         "text": "Add moving scheduling to next/prev day feature",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": "2025-12-12",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797572"
     },
     {
         "text": "Navigation when edit",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": "2025-12-13",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797575"
     },
     {
         "text": "Sort by scheduled at",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": "2025-12-18",
-        "completed_at": "2025-12-16"
+        "completed_at": "2025-12-16",
+        "modified_at": "2026-01-21T18:31:51.797578"
     },
     {
         "text": "Readable dates",
         "done": true,
         "created_at": "2025-12-12",
         "scheduled_at": null,
-        "completed_at": "2025-12-17"
+        "completed_at": "2025-12-17",
+        "modified_at": "2026-01-21T18:31:51.797580"
     },
     {
         "text": "Show completed at for completed todo items instead",
         "done": true,
         "created_at": "2025-12-17",
         "scheduled_at": "2025-12-17",
-        "completed_at": "2025-12-17"
+        "completed_at": "2025-12-17",
+        "modified_at": "2026-01-21T18:31:51.797583"
     },
     {
         "text": "Add save on exception",
         "done": true,
         "created_at": "2025-12-18",
         "scheduled_at": "2025-12-17",
-        "completed_at": "2025-12-17"
+        "completed_at": "2025-12-17",
+        "modified_at": "2026-01-21T18:31:51.797590"
     },
     {
         "text": "Adjust sorting to sort done by completed_at",
         "done": true,
         "created_at": "2025-12-20",
         "scheduled_at": "2025-12-20",
-        "completed_at": "2025-12-20"
+        "completed_at": "2025-12-20",
+        "modified_at": "2026-01-21T18:31:51.797595"
     },
     {
         "text": "Create github repo",
         "done": true,
         "created_at": "2025-12-20",
         "scheduled_at": "2025-12-20",
-        "completed_at": "2025-12-20"
+        "completed_at": "2025-12-20",
+        "modified_at": "2026-01-21T18:31:51.797598"
     },
     {
         "text": "Scrolling",
         "done": true,
         "created_at": "2025-12-17",
         "scheduled_at": "2025-12-26",
-        "completed_at": "2025-12-27"
+        "completed_at": "2025-12-27",
+        "modified_at": "2026-01-21T18:31:51.797603"
     },
     {
         "text": "Readable dates with weekdays",
         "done": true,
         "created_at": "2025-12-18",
         "scheduled_at": "2026-01-06",
-        "completed_at": "2026-01-07"
+        "completed_at": "2026-01-07",
+        "modified_at": "2026-01-21T18:31:51.797606"
     },
     {
         "text": "Move all business logic to new TodoProject class",
         "done": true,
         "created_at": "2026-01-07",
         "scheduled_at": "2026-01-07",
-        "completed_at": "2026-01-10"
+        "completed_at": "2026-01-10",
+        "modified_at": "2026-01-21T18:31:51.797610"
     },
     {
         "text": "Think how to move remained business logic to project class",
         "done": true,
         "created_at": "2026-01-10",
         "scheduled_at": "2026-01-11",
-        "completed_at": "2026-01-11"
+        "completed_at": "2026-01-11",
+        "modified_at": "2026-01-21T18:31:51.797616"
     },
     {
         "text": "Fix move to top and move to bottom (scrolling)",
         "done": true,
         "created_at": "2026-01-11",
         "scheduled_at": "2026-01-11",
-        "completed_at": "2026-01-13"
+        "completed_at": "2026-01-13",
+        "modified_at": "2026-01-21T18:31:51.797619"
     },
     {
         "text": "Fix Scrolling",
         "done": true,
         "created_at": "2025-12-27",
         "scheduled_at": "2026-01-23",
-        "completed_at": "2026-01-21"
+        "completed_at": "2026-01-21",
+        "modified_at": "2026-01-21T18:31:51.797621"
+    },
+    {
+        "text": "Add last modified date(time)",
+        "done": true,
+        "created_at": "2026-01-07",
+        "scheduled_at": "2026-01-21",
+        "completed_at": "2026-01-21",
+        "modified_at": "2026-01-21T18:31:51.797628"
     },
     {
         "text": "Google Drive: Authorization",
         "done": false,
         "created_at": "2026-01-15",
         "scheduled_at": "2026-01-21",
-        "completed_at": null
-    },
-    {
-        "text": "Add last modified date(time)",
-        "done": false,
-        "created_at": "2026-01-07",
-        "scheduled_at": "2026-01-21",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797624"
     },
     {
         "text": "Add copy-paste support to edit",
         "done": false,
         "created_at": "2025-12-15",
         "scheduled_at": null,
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797636"
     },
     {
         "text": "Google Drive: Save/Load",
         "done": false,
         "created_at": "2026-01-15",
         "scheduled_at": "2026-01-22",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797639"
     },
     {
         "text": "Show/hide Done",
         "done": false,
         "created_at": "2025-12-27",
         "scheduled_at": "2026-01-22",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797644"
     },
     {
         "text": "Google Drive: Migrate from another storages",
         "done": false,
         "created_at": "2026-01-15",
         "scheduled_at": "2026-01-23",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797647"
     },
     {
         "text": "Implement recurring tasks",
         "done": false,
         "created_at": "2025-12-12",
         "scheduled_at": "2026-01-24",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797650"
     },
     {
         "text": "Multiselect",
         "done": false,
         "created_at": "2025-12-13",
         "scheduled_at": "2026-01-24",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797652"
     },
     {
         "text": "Backups",
         "done": false,
         "created_at": "2025-12-12",
         "scheduled_at": "2026-01-25",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797656"
     },
     {
         "text": "Abstract out current selected todo to property",
         "done": false,
         "created_at": "2025-12-13",
         "scheduled_at": "2026-01-25",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797658"
     },
     {
         "text": "Fix small bug in scrolling",
         "done": false,
         "created_at": "2026-01-21",
         "scheduled_at": "2026-01-26",
-        "completed_at": null
+        "completed_at": null,
+        "modified_at": "2026-01-21T18:31:51.797661"
     }
 ]
