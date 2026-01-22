@@ -1,8 +1,16 @@
 import dataclasses
 from typing import List
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from model.todo import Todo
+
+def modification(func):
+    def wrapper(*args, **kwargs):
+        self, i = args[:2]
+        result = func(*args, **kwargs)
+        self.todos[i].modified_at = datetime.now()
+        return result
+    return wrapper
 
 class Project:
     def __init__(self, todos: List[Todo]):
@@ -48,6 +56,7 @@ class Project:
 
         self.todos = sorted(self.todos, key=_key)
 
+    @modification
     def schedule(self, i: int, date: date):
         # TODO: use separate function for setting completion
         if self.todos[i].done:
@@ -94,6 +103,7 @@ class Project:
     def move_to_bottom(self, i: int) -> bool:
         return self.project.move(old_pos=self.i, new_pos=len(self.project.todos) - 1)
 
+    @modification
     def increment_scheduled_at(self, i: int):
         if self.todos[i].done:
             if self.todos[i].completed_at is None:
@@ -104,6 +114,7 @@ class Project:
                 self.schedule(i, date=date.today())
             self.todos[i].scheduled_at += timedelta(days=1)
 
+    @modification
     def decrement_scheduled_at(self, i: int):
         if self.todos[i].done:
             if self.todos[i].completed_at is None:
@@ -114,6 +125,7 @@ class Project:
                 self.schedule(i, date=date.today())
             self.todos[i].scheduled_at -= timedelta(days=1)
 
+    @modification
     def toggle(self, i: int):
         self.todos[i].done = not self.todos[i].done
         self.todos[i].completed_at = date.today()
