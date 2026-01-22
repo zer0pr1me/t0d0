@@ -1,4 +1,6 @@
+from typing import List
 from datetime import date
+
 from blessed import Terminal
 
 from model.todo import Todo, human_date
@@ -30,7 +32,7 @@ class TodoScreen(Screen):
         return min(total_count - self.start_i, max_visible) - 1
 
     @property
-    def todos(self):
+    def todos(self) -> List[Todo]:
         return self.project.todos
 
     def _ensure_selected_is_seen(self):
@@ -92,7 +94,7 @@ class TodoScreen(Screen):
 
     @hotkey(key='j', mode='normal')
     def move_down(self):
-        self.i = min(self.i + 1, len(self.todos) - 1)
+        self.i = min(self.i + 1, self.project.todos_count - 1)
         self._ensure_selected_is_seen()
 
     @hotkey(key='k', mode='normal')
@@ -112,8 +114,7 @@ class TodoScreen(Screen):
 
     @hotkey(key=' ', mode='normal')
     def toggle_todo(self):
-        self.todos[self.i].done = not self.todos[self.i].done
-        self.todos[self.i].completed_at = date.today()
+        self.project.toggle(self.i)
 
     @hotkey(key='a', mode='normal')
     def add_todo_to_top(self):

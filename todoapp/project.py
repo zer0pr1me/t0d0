@@ -114,3 +114,7 @@ class Project:
                 self.schedule(i, date=date.today())
             self.todos[i].scheduled_at -= timedelta(days=1)
 
+    def toggle(self, i: int):
+        self.todos[i].done = not self.todos[i].done
+        self.todos[i].completed_at = date.today()
+
