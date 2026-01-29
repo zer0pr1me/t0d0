@@ -344,6 +344,30 @@
         "modified_at": "2026-01-22T02:30:49.703762"
     },
     {
+        "text": "Filter today items (and general filtering logic)",
+        "done": false,
+        "created_at": "2026-01-29",
+        "scheduled_at": "2026-01-29",
+        "completed_at": null,
+        "modified_at": "2026-01-29T17:35:08.252862"
+    },
+    {
+        "text": "Refactor dialogs: separate components of the form",
+        "done": false,
+        "created_at": "2026-01-29",
+        "scheduled_at": "2026-01-30",
+        "completed_at": null,
+        "modified_at": "2026-01-29T17:36:09.929986"
+    },
+    {
+        "text": "Add help screen",
+        "done": false,
+        "created_at": "2026-01-29",
+        "scheduled_at": "2026-01-30",
+        "completed_at": null,
+        "modified_at": "2026-01-29T17:36:10.387838"
+    },
+    {
         "text": "Google Drive: Authorization",
         "done": false,
         "created_at": "2026-01-15",

@@ -18,6 +18,7 @@ from dacite import from_dict
 
 class MenuScreen(Screen):
     def __init__(self, term: Terminal):
+        # TODO: abstract out both screens to PickerScreen
         super().__init__(term)
         self.i = 0
 
@@ -61,7 +62,7 @@ class MenuScreen(Screen):
 
     @hotkey(key='j')
     def move_down(self):
-        self.i = min(self.i + 1, len(self.config.todolists))
+        self.i = min(self.i+1, len(self.config.todolists)-1)
 
     @hotkey(key='k')
     def move_up(self):

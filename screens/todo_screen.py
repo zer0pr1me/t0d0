@@ -116,7 +116,8 @@ class TodoScreen(Screen):
     def toggle_todo(self):
         self.project.toggle(self.i)
 
-    @hotkey(key='a', mode='normal')
+    # TODO: not working correctly, take a look
+    # @hotkey(key='a', mode='normal')
     def add_todo_to_top(self):
         if self.project.insert_empty(0):
             self.i = 0
