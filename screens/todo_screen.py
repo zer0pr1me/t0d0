@@ -17,12 +17,29 @@ class TodoScreen(Screen):
         self.storage = storage
         self.mode = 'normal'
         self.start_i = 0
-        self.i = 0
+
+        self.i = 0 # selected in filtered (visible) todo list
+
         self.edit_cursor = 0
+
+        self.today_only = False
+        self.index_map = dict()
+
+    @property
+    def selected_index(self) -> Todo:
+        return self.index_map[self.i] if self.filtered_count > 0 else 0
+
+    @property
+    def selected_todo(self) -> Todo:
+        return self.todos[self.selected_index]
+
+    @property
+    def filtered_count(self) -> int:
+        return len(self.index_map)
 
     @property
     def visible_row_count(self) -> int:
-        total_count = self.project.todos_count
+        total_count = self.filtered_count
         max_visible = self.term.height
         if self.start_i != 0:
             max_visible -= 1
@@ -33,7 +50,13 @@ class TodoScreen(Screen):
 
     @property
     def todos(self) -> List[Todo]:
+        # TODO: isolate todos so that we can't set it directly
         return self.project.todos
+
+    @property
+    def filtered_todos(self) -> List[Todo]:
+        return [self.todos[index] 
+                for index in self.index_map]
 
     def _ensure_selected_is_seen(self):
         if self.i < self.start_i:
@@ -43,28 +66,53 @@ class TodoScreen(Screen):
 
     def _start_edit(self):
         self.mode = 'edit'
-        self.edit_cursor = len(self.todos[self.i].text)
+        self.edit_cursor = len(self.selected_todo.text)
+
+    def _apply_filters(self):
+        if self.index_map:
+            last_start_index = self.index_map[self.start_i]
+        if self.today_only:
+            self.index_map = [i 
+                              for i, todo in enumerate(self.todos)
+                              if todo.scheduled_at == date.today()]
+        else:
+            self.index_map = list(range(self.project.todos_count))
+
+        # set start index as close as possible to previous start
+        if 'last_start_index' in locals():
+            found = False
+            for i, index in enumerate(self.index_map):
+                if index >= last_start_index:
+                    self.start_i = self.i = i
+                    found = True
+                    break
+
+            if not found:
+                self.i = len(self.index_map) - 1
+
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
+        return # TODO: rewrite logic considering filtering
         if self.project.swap_with_next(self.i):
             self.i += 1
 
     @hotkey(key='p', ctrl = True)
     def swap_with_prev(self):
+        return # TODO: rewrite logic considering filtering
         if self.project.swap_with_prev(self.i):
             self.i -= 1
 
     @hotkey(key='t', ctrl = True)
     def move_to_top(self):
         # TODO: fix hotkey
-        if self.project.move_to_top(self.i):
+        if self.project.move_to_top(self.selected_index):
             self.i = 0
 
     @hotkey(key='e', ctrl = True)
     def move_to_bottom(self):
         # TODO: fix hotkey
-        if self.project.move_to_bottom(self.i):
+        if self.project.move_to_bottom(self.selected_index):
             self.i = self.project.todos_count - 1
 
     @hotkey(key='s', alt = True)
@@ -73,20 +121,21 @@ class TodoScreen(Screen):
 
     @hotkey(key='w', mode='normal')
     def schedule_to_today(self):
-        self.project.schedule(self.i, date=date.today())
+        self.project.schedule(self.selected_index, date=date.today())
 
     @hotkey(key='h', mode='normal')
     def move_schedule_prev(self):
-        self.project.decrement_scheduled_at(self.i)
+        self.project.decrement_scheduled_at(self.selected_index)
 
     @hotkey(key='l', mode='normal')
     def move_schedule_next(self):
-        self.project.increment_scheduled_at(self.i)
+        self.project.increment_scheduled_at(self.selected_index)
 
     @hotkey(key='c', mode='normal')
     def copy_todo(self):
-        if self.project.copy(self.i):
+        if self.project.copy(self.selected_index):
             self.i += 1
+            self._apply_filters()
 
     @hotkey(key='q', mode='normal')
     def quit(self):
@@ -94,7 +143,7 @@ class TodoScreen(Screen):
 
     @hotkey(key='j', mode='normal')
     def move_down(self):
-        self.i = min(self.i + 1, self.project.todos_count - 1)
+        self.i = min(self.i + 1, self.filtered_count - 1)
         self._ensure_selected_is_seen()
 
     @hotkey(key='k', mode='normal')
@@ -109,7 +158,7 @@ class TodoScreen(Screen):
 
     @hotkey(key='b', mode='normal')
     def move_to_bottom(self):
-        self.i = self.project.todos_count - 1
+        self.i = self.filtered_count - 1
         self._ensure_selected_is_seen()
 
     @hotkey(key=' ', mode='normal')
@@ -129,20 +178,27 @@ class TodoScreen(Screen):
 
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
-        if self.project.insert_empty(self.i):
-            if self.project.todos_count != 1:
+        if self.project.insert_empty(self.selected_index):
+            if self.filtered_count != 1:
                 self.i += 1
             self._start_edit()
 
     @hotkey(key='d', mode='normal')
     def delete_todo(self):
         def _delete():
-            if self.project.delete(self.i):
-                self.i = min(self.i, self.project.todos_count - 1)
+            if self.project.delete(self.selected_index):
+                self.i = min(self.i, self.filtered_count - 1)
         dialog = ConfirmationDialog(term=self.term,
                                     msg='Do you want to delete this TODO entry?',
                                     on_confirm=_delete)
         self.show_dialog(dialog)
+
+    @hotkey(key='T', mode='normal')
+    def toggle_show_today_only(self):
+        # TODO:  generalize as filter
+        self.today_only = not self.today_only
+        self._apply_filters()
+
 
 
     @unhandled_key_handler()
@@ -151,19 +207,19 @@ class TodoScreen(Screen):
             if name == 'KEY_ENTER' or name == 'KEY_ESCAPE' or (key == '[' and ctrl):
                 self.mode = 'normal' 
             elif name == 'KEY_BACKSPACE':
-                text = self.todos[self.i].text
-                self.todos[self.i].text = text[:self.edit_cursor-1] + text[self.edit_cursor:]
+                text = self.selected_todo.text
+                self.selected_todo.text = text[:self.edit_cursor-1] + text[self.edit_cursor:]
                 self.edit_cursor = max(0, self.edit_cursor - 1)
             elif key == 'b' and ctrl:
                 self.edit_cursor = max(self.edit_cursor - 1, 0)
             elif key == 'f' and ctrl:
                 self.edit_cursor = min(self.edit_cursor + 1, len(self.todos[self.i].text))
             else: 
-                if self.edit_cursor == len(self.todos[self.i].text):
-                    self.todos[self.i].text += key
+                if self.edit_cursor == len(self.selected_todo.text):
+                    self.selected_todo.text += key
                 else:
                     text = self.todos[self.i].text 
-                    self.todos[self.i].text = text[:self.edit_cursor] + key + text[self.edit_cursor:]
+                    self.selected_todo.text = text[:self.edit_cursor] + key + text[self.edit_cursor:]
                 self.edit_cursor += 1
 
 
@@ -174,7 +230,7 @@ class TodoScreen(Screen):
 
         end_i = start_i + self.visible_row_count + 1
 
-        for i, todo in enumerate(self.todos[start_i:end_i], start_i):
+        for i, todo in enumerate(self.filtered_todos[start_i:end_i], start_i):
             if i == self.i:
                 if self.mode == 'edit':
                     print(f'[{"x" if todo.done else " "}] {todo.text[:self.edit_cursor]}', end='')
@@ -209,6 +265,7 @@ class TodoScreen(Screen):
 
     def on_start(self):
         self.project = self.storage.load()
+        self._apply_filters()
 
 
     def on_exit(self):

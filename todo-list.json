@@ -345,11 +345,35 @@
     },
     {
         "text": "Filter today items (and general filtering logic)",
-        "done": false,
+        "done": true,
         "created_at": "2026-01-29",
         "scheduled_at": "2026-01-29",
+        "completed_at": "2026-01-30",
+        "modified_at": "2026-01-30T03:14:14.207352"
+    },
+    {
+        "text": "Generalize date filter (to have also yesterday filter)",
+        "done": false,
+        "created_at": "2026-01-30",
+        "scheduled_at": "2026-01-30",
         "completed_at": null,
-        "modified_at": "2026-01-29T17:35:08.252862"
+        "modified_at": "2026-01-30T03:14:43.573238"
+    },
+    {
+        "text": "Reimplement swaps considering new filtering logic",
+        "done": false,
+        "created_at": "2026-01-30",
+        "scheduled_at": "2026-01-30",
+        "completed_at": null,
+        "modified_at": "2026-01-30T03:15:23.454692"
+    },
+    {
+        "text": "Add Done filter",
+        "done": false,
+        "created_at": "2026-01-30",
+        "scheduled_at": null,
+        "completed_at": null,
+        "modified_at": "2026-01-30T03:14:35.066805"
     },
     {
         "text": "Refactor dialogs: separate components of the form",
