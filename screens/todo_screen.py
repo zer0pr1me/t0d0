@@ -103,14 +103,14 @@ class TodoScreen(Screen):
 
     @hotkey(key='n', ctrl = True)
     def swap_with_next(self):
-        return # TODO: rewrite logic considering filtering
-        if self.project.swap_with_next(self.i):
+        if self.filtered_count > self.i+1:
+            self.project.swap(self.selected_index, self.index_map[self.i + 1])
             self.i += 1
 
     @hotkey(key='p', ctrl = True)
     def swap_with_prev(self):
-        return # TODO: rewrite logic considering filtering
-        if self.project.swap_with_prev(self.i):
+         if self.i != 0:
+            self.project.swap(self.selected_index, self.index_map[self.i - 1])
             self.i -= 1
 
     @hotkey(key='t', ctrl = True)
@@ -210,8 +210,6 @@ class TodoScreen(Screen):
         self.today_only = not self.today_only
         self._apply_filters()
 
-
-
     @unhandled_key_handler()
     def handle_editing(self, name: str, key: str, ctrl: bool, alt: bool):
         if self.mode == 'edit':
@@ -232,7 +230,6 @@ class TodoScreen(Screen):
                     text = self.todos[self.i].text 
                     self.selected_todo.text = text[:self.edit_cursor] + key + text[self.edit_cursor:]
                 self.edit_cursor += 1
-
 
     def render(self):
         start_i = self.start_i

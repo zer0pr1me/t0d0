@@ -352,7 +352,95 @@
         "modified_at": "2026-01-30T03:14:14.207352"
     },
     {
-        "text": "Generalize date filter (to have also yesterday filter)",
+        "text": "Reimplement swaps considering new filtering logic",
+        "done": true,
+        "created_at": "2026-01-30",
+        "scheduled_at": "2026-01-30",
+        "completed_at": "2026-01-30",
+        "modified_at": "2026-01-30T18:44:40.826222"
+    },
+    {
+        "text": "Abstract out current selected todo to property",
+        "done": true,
+        "created_at": "2025-12-13",
+        "scheduled_at": "2026-01-25",
+        "completed_at": "2026-01-30",
+        "modified_at": "2026-01-30T18:46:25.001955"
+    },
+    {
+        "text": "Google Drive: Authorization",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-02-06",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:47.231653"
+    },
+    {
+        "text": "Google Drive: Save/Load",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-02-03",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:48.485763"
+    },
+    {
+        "text": "Show/hide Done",
+        "done": false,
+        "created_at": "2025-12-27",
+        "scheduled_at": "2026-02-02",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:49.871042"
+    },
+    {
+        "text": "Google Drive: Migrate from another storages",
+        "done": false,
+        "created_at": "2026-01-15",
+        "scheduled_at": "2026-02-10",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:51.786200"
+    },
+    {
+        "text": "Implement recurring tasks",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-02-02",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:52.914722"
+    },
+    {
+        "text": "Multiselect",
+        "done": false,
+        "created_at": "2025-12-13",
+        "scheduled_at": "2026-02-06",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:54.258882"
+    },
+    {
+        "text": "Backups",
+        "done": false,
+        "created_at": "2025-12-12",
+        "scheduled_at": "2026-02-05",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:55.464310"
+    },
+    {
+        "text": "Fix small bug in scrolling",
+        "done": false,
+        "created_at": "2026-01-21",
+        "scheduled_at": "2026-02-05",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:46:57.936218"
+    },
+    {
+        "text": "Add remove scheduled_at hotkey",
+        "done": false,
+        "created_at": "2026-01-30",
+        "scheduled_at": "2026-01-30",
+        "completed_at": null,
+        "modified_at": "2026-01-30T18:47:12.780889"
+    },
+    {
+        "text": "Generalize date filter (to have also recent/undone filter)",
         "done": false,
         "created_at": "2026-01-30",
         "scheduled_at": "2026-01-30",
@@ -360,20 +448,12 @@
         "modified_at": "2026-01-30T03:14:43.573238"
     },
     {
-        "text": "Reimplement swaps considering new filtering logic",
+        "text": "Implement status bar and show current filter",
         "done": false,
         "created_at": "2026-01-30",
         "scheduled_at": "2026-01-30",
         "completed_at": null,
-        "modified_at": "2026-01-30T03:15:23.454692"
-    },
-    {
-        "text": "Add Done filter",
-        "done": false,
-        "created_at": "2026-01-30",
-        "scheduled_at": null,
-        "completed_at": null,
-        "modified_at": "2026-01-30T03:14:35.066805"
+        "modified_at": "2026-01-30T18:45:33.648300"
     },
     {
         "text": "Refactor dialogs: separate components of the form",
@@ -392,14 +472,6 @@
         "modified_at": "2026-01-29T17:36:10.387838"
     },
     {
-        "text": "Google Drive: Authorization",
-        "done": false,
-        "created_at": "2026-01-15",
-        "scheduled_at": "2026-01-21",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797624"
-    },
-    {
         "text": "Add copy-paste support to edit",
         "done": false,
         "created_at": "2025-12-15",
@@ -408,67 +480,11 @@
         "modified_at": "2026-01-21T18:31:51.797636"
     },
     {
-        "text": "Google Drive: Save/Load",
+        "text": "Add Done filter",
         "done": false,
-        "created_at": "2026-01-15",
-        "scheduled_at": "2026-01-22",
+        "created_at": "2026-01-30",
+        "scheduled_at": "2026-01-31",
         "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797639"
-    },
-    {
-        "text": "Show/hide Done",
-        "done": false,
-        "created_at": "2025-12-27",
-        "scheduled_at": "2026-01-22",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797644"
-    },
-    {
-        "text": "Google Drive: Migrate from another storages",
-        "done": false,
-        "created_at": "2026-01-15",
-        "scheduled_at": "2026-01-23",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797647"
-    },
-    {
-        "text": "Implement recurring tasks",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2026-01-24",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797650"
-    },
-    {
-        "text": "Multiselect",
-        "done": false,
-        "created_at": "2025-12-13",
-        "scheduled_at": "2026-01-24",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797652"
-    },
-    {
-        "text": "Backups",
-        "done": false,
-        "created_at": "2025-12-12",
-        "scheduled_at": "2026-01-25",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797656"
-    },
-    {
-        "text": "Abstract out current selected todo to property",
-        "done": false,
-        "created_at": "2025-12-13",
-        "scheduled_at": "2026-01-25",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797658"
-    },
-    {
-        "text": "Fix small bug in scrolling",
-        "done": false,
-        "created_at": "2026-01-21",
-        "scheduled_at": "2026-01-26",
-        "completed_at": null,
-        "modified_at": "2026-01-21T18:31:51.797661"
+        "modified_at": "2026-01-30T18:45:42.231003"
     }
 ]
