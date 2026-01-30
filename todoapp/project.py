@@ -84,8 +84,7 @@ class Project:
             return False
         copy = dataclasses.replace(self.todos[i], 
                                    done=False, 
-                                   created_at=date.today(), 
-                                   scheduled_at=None)
+                                   created_at=date.today())
 
         self.todos = self.todos[:i+1] + [copy] + self.todos[i+1:]
 

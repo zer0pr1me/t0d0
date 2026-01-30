@@ -71,6 +71,7 @@ class TodoScreen(Screen):
     def _apply_filters(self):
         if self.index_map:
             last_start_index = self.index_map[self.start_i]
+            last_selected_index = self.selected_index
         if self.today_only:
             self.index_map = [i 
                               for i, todo in enumerate(self.todos)
@@ -80,15 +81,24 @@ class TodoScreen(Screen):
 
         # set start index as close as possible to previous start
         if 'last_start_index' in locals():
-            found = False
+            start_i_found = False
+            i_found = False
             for i, index in enumerate(self.index_map):
-                if index >= last_start_index:
-                    self.start_i = self.i = i
-                    found = True
+                if not start_i_found and index >= last_start_index:
+                    self.start_i = i
+                    start_i_found = True
+                if index >= last_selected_index:
+                    self.i = i
+                    i_found = True
                     break
 
-            if not found:
+            if not start_i_found:
+                self.start_i = 0
+
+            if not i_found:
                 self.i = len(self.index_map) - 1
+
+            self._ensure_selected_is_seen()
 
 
     @hotkey(key='n', ctrl = True)
@@ -134,8 +144,8 @@ class TodoScreen(Screen):
     @hotkey(key='c', mode='normal')
     def copy_todo(self):
         if self.project.copy(self.selected_index):
-            self.i += 1
             self._apply_filters()
+            self.i += 1
 
     @hotkey(key='q', mode='normal')
     def quit(self):
@@ -188,6 +198,7 @@ class TodoScreen(Screen):
         def _delete():
             if self.project.delete(self.selected_index):
                 self.i = min(self.i, self.filtered_count - 1)
+            self._apply_filters()
         dialog = ConfirmationDialog(term=self.term,
                                     msg='Do you want to delete this TODO entry?',
                                     on_confirm=_delete)
