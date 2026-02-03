@@ -188,7 +188,11 @@ class TodoScreen(Screen):
 
     @hotkey(key='i', mode='normal')
     def insert_todo(self):
+        if self.today_only:
+            # TODO: think how you can make it work when filters are applied
+            return
         if self.project.insert_empty(self.selected_index):
+            self._apply_filters()
             if self.filtered_count != 1:
                 self.i += 1
             self._start_edit()
