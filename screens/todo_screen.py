@@ -173,7 +173,7 @@ class TodoScreen(Screen):
 
     @hotkey(key=' ', mode='normal')
     def toggle_todo(self):
-        self.project.toggle(self.i)
+        self.project.toggle(self.selected_index)
 
     # TODO: not working correctly, take a look
     # @hotkey(key='a', mode='normal')
@@ -222,12 +222,12 @@ class TodoScreen(Screen):
             elif key == 'b' and ctrl:
                 self.edit_cursor = max(self.edit_cursor - 1, 0)
             elif key == 'f' and ctrl:
-                self.edit_cursor = min(self.edit_cursor + 1, len(self.todos[self.i].text))
+                self.edit_cursor = min(self.edit_cursor + 1, len(self.todos[self.selected_index].text))
             else: 
                 if self.edit_cursor == len(self.selected_todo.text):
                     self.selected_todo.text += key
                 else:
-                    text = self.todos[self.i].text 
+                    text = self.todos[self.selected_index].text 
                     self.selected_todo.text = text[:self.edit_cursor] + key + text[self.edit_cursor:]
                 self.edit_cursor += 1
 
