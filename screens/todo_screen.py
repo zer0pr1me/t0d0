@@ -175,6 +175,10 @@ class TodoScreen(Screen):
     def toggle_todo(self):
         self.project.toggle(self.selected_index)
 
+    @hotkey(key='N', mode='normal')
+    def clear_scheduled(self):
+        self.project.clear_scheduled(self.selected_index)
+
     # TODO: not working correctly, take a look
     # @hotkey(key='a', mode='normal')
     def add_todo_to_top(self):

@@ -57,6 +57,10 @@ class Project:
         self.todos = sorted(self.todos, key=_key)
 
     @modification
+    def clear_scheduled(self, i: int):
+        self.todos[i].scheduled_at = None
+
+    @modification
     def schedule(self, i: int, date: date):
         # TODO: use separate function for setting completion
         if self.todos[i].done:
@@ -126,6 +130,7 @@ class Project:
 
     @modification
     def toggle(self, i: int):
-        self.todos[i].done = not self.todos[i].done
-        self.todos[i].completed_at = date.today()
+        done = not self.todos[i].done
+        self.todos[i].done = done 
+        self.todos[i].completed_at = date.today() if done else None
 
